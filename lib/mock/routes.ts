@@ -1,0 +1,58 @@
+import type { Route } from '@/lib/types'
+
+export const mockRoutes: Route[] = [
+  {
+    id: 'r1',
+    name: 'Larnaca Airport → Nicosia',
+    pickup_location: 'Larnaca International Airport',
+    dropoff_location: 'Nicosia City Centre',
+    base_price: 45,
+    round_trip_price: 80,
+    is_active: true,
+  },
+  {
+    id: 'r2',
+    name: 'Larnaca Airport → Limassol',
+    pickup_location: 'Larnaca International Airport',
+    dropoff_location: 'Limassol City Centre',
+    base_price: 55,
+    round_trip_price: 100,
+    is_active: true,
+  },
+  {
+    id: 'r3',
+    name: 'Larnaca Airport → Ayia Napa',
+    pickup_location: 'Larnaca International Airport',
+    dropoff_location: 'Ayia Napa Resort',
+    base_price: 50,
+    round_trip_price: 90,
+    is_active: true,
+  },
+  {
+    id: 'r4',
+    name: 'Paphos Airport → Limassol',
+    pickup_location: 'Paphos International Airport',
+    dropoff_location: 'Limassol City Centre',
+    base_price: 50,
+    round_trip_price: 90,
+    is_active: true,
+  },
+  {
+    id: 'r5',
+    name: 'Paphos Airport → Nicosia',
+    pickup_location: 'Paphos International Airport',
+    dropoff_location: 'Nicosia City Centre',
+    base_price: 70,
+    round_trip_price: 125,
+    is_active: true,
+  },
+  {
+    id: 'r6',
+    name: 'Paphos Airport → Paphos City',
+    pickup_location: 'Paphos International Airport',
+    dropoff_location: 'Paphos City Centre',
+    base_price: 20,
+    round_trip_price: 35,
+    is_active: true,
+  },
+]
