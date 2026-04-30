@@ -26,7 +26,7 @@ export function PriceSummary({
     })
     .filter((e): e is Extra & { quantity: number } => e !== null)
 
-  const { baseAmount, extrasAmount, total } = calculatePrice({
+  const { baseAmount, total } = calculatePrice({
     basePrice: route?.base_price ?? 0,
     roundTripPrice: route?.round_trip_price ?? 0,
     isRoundTrip,
@@ -34,49 +34,58 @@ export function PriceSummary({
   })
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 font-semibold text-zinc-900">Price Summary</h3>
+    <div className="rounded-2xl bg-night p-7 text-white shadow-xl">
+      <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/30">
+        Price Summary
+      </p>
 
       {!route ? (
-        <p className="text-sm text-zinc-400">Select a route to see pricing</p>
+        <div className="py-6">
+          <p className="font-display text-6xl font-light italic text-white/15">€—</p>
+          <p className="mt-4 text-sm text-white/30">Select a route to see pricing</p>
+        </div>
       ) : (
         <>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-zinc-600">
+          <div className="mb-5 space-y-2.5 text-sm">
+            <div className="flex justify-between gap-4">
+              <span className="text-white/50">
                 {route.name}
-                {isRoundTrip ? ' (Round Trip)' : ' (One Way)'}
+                {isRoundTrip ? ' (Return)' : ' (One Way)'}
               </span>
-              <span className="font-medium text-zinc-900">€{baseAmount.toFixed(2)}</span>
+              <span className="shrink-0 text-white">€{baseAmount.toFixed(2)}</span>
             </div>
-
             {isVip && (
-              <div className="flex justify-between text-zinc-600">
+              <div className="flex justify-between text-white/50">
                 <span>VIP Service</span>
-                <span>Included</span>
+                <span className="text-white">Included</span>
               </div>
             )}
-
             {extrasWithPrices.map(e => (
-              <div key={e.id} className="flex justify-between text-zinc-600">
+              <div key={e.id} className="flex justify-between text-white/50">
                 <span>
                   {e.name} × {e.quantity}
                 </span>
-                <span>€{(e.price * e.quantity).toFixed(2)}</span>
+                <span className="text-white">€{(e.price * e.quantity).toFixed(2)}</span>
               </div>
             ))}
-
-            <div className="border-t border-zinc-200 pt-2 flex justify-between font-semibold text-zinc-900">
-              <span>Total</span>
-              <span>€{total.toFixed(2)}</span>
-            </div>
           </div>
 
-          <Button type="submit" className="mt-6 w-full" size="lg" loading={submitting}>
+          <div className="mb-7 h-px bg-white/10" />
+
+          <div className="mb-8">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/30">
+              Total
+            </p>
+            <p className="font-display text-6xl font-light italic leading-none text-gold">
+              €{total.toFixed(2)}
+            </p>
+          </div>
+
+          <Button type="submit" className="w-full" size="lg" loading={submitting}>
             Book Now
           </Button>
 
-          <p className="mt-3 text-center text-xs text-zinc-400">
+          <p className="mt-4 text-center text-xs text-white/25">
             Confirmation sent by email &amp; SMS
           </p>
         </>

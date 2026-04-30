@@ -71,7 +71,9 @@ export function BookingForm({ routes, extras }: BookingFormProps) {
     const exists = current.some(e => e.extra_id === extraId)
     setValue(
       'extras',
-      exists ? current.filter(e => e.extra_id !== extraId) : [...current, { extra_id: extraId, quantity: 1 }]
+      exists
+        ? current.filter(e => e.extra_id !== extraId)
+        : [...current, { extra_id: extraId, quantity: 1 }]
     )
   }
 
@@ -93,223 +95,276 @@ export function BookingForm({ routes, extras }: BookingFormProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Book Your Transfer</h1>
-          <p className="mt-2 text-zinc-500">Cyprus airport transfers — fixed prices, no surprises</p>
+      {/* Hero */}
+      <div className="relative overflow-hidden bg-night py-20 sm:py-28">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 60% at 10% 50%, rgba(200,146,42,0.18) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 90% 110%, rgba(26,58,92,0.5) 0%, transparent 60%)',
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <p
+            className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-gold"
+            style={{ animation: 'fade-in 0.6s ease both' }}
+          >
+            Cyprus Airport Transfers
+          </p>
+          <h1
+            className="font-display text-5xl font-light italic leading-[1.05] text-white sm:text-7xl"
+            style={{ animation: 'slide-up 0.7s ease both 0.1s' }}
+          >
+            Fixed prices.<br />
+            No surprises.
+          </h1>
+          <div
+            className="mt-7 h-px w-12 origin-left bg-gold"
+            style={{ animation: 'scale-x 0.8s ease both 0.5s' }}
+          />
+          <p
+            className="mt-6 max-w-sm text-base leading-relaxed text-white/50"
+            style={{ animation: 'slide-up 0.7s ease both 0.3s' }}
+          >
+            Larnaca &amp; Paphos airports to anywhere in Cyprus. Book in minutes, no account needed.
+          </p>
         </div>
+      </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
-          <div className="space-y-6">
+      {/* Form area */}
+      <div className="bg-sand">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+          <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
+            <div className="space-y-5">
 
-            {/* Route & Date */}
-            <section className="rounded-xl border border-zinc-200 bg-white p-6">
-              <h2 className="mb-4 font-semibold text-zinc-900">Route &amp; Date</h2>
-              <div className="space-y-4">
-                <Controller
-                  name="route_id"
-                  control={control}
-                  render={({ field }) => (
-                    <RouteSelector
-                      routes={routes}
-                      value={field.value}
-                      onChange={field.onChange}
-                      error={errors.route_id?.message}
-                    />
-                  )}
-                />
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Input
-                    label="Date"
-                    type="date"
-                    required
-                    min={new Date().toISOString().split('T')[0]}
-                    {...register('date')}
-                    error={errors.date?.message}
-                  />
-                  <Input
-                    label="Time"
-                    type="time"
-                    required
-                    {...register('time')}
-                    error={errors.time?.message}
-                  />
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
+              {/* Route & Date */}
+              <section className="rounded-2xl border border-warm bg-cream p-6 shadow-sm">
+                <h2 className="mb-5 font-display text-xl font-semibold text-ink">
+                  Route &amp; Date
+                </h2>
+                <div className="space-y-4">
                   <Controller
-                    name="passenger_count"
+                    name="route_id"
                     control={control}
                     render={({ field }) => (
-                      <CounterInput
-                        label="Passengers"
+                      <RouteSelector
+                        routes={routes}
                         value={field.value}
-                        min={1}
-                        max={8}
+                        onChange={field.onChange}
+                        error={errors.route_id?.message}
+                      />
+                    )}
+                  />
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Input
+                      label="Date"
+                      type="date"
+                      required
+                      min={new Date().toISOString().split('T')[0]}
+                      {...register('date')}
+                      error={errors.date?.message}
+                    />
+                    <Input
+                      label="Time"
+                      type="time"
+                      required
+                      {...register('time')}
+                      error={errors.time?.message}
+                    />
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Controller
+                      name="passenger_count"
+                      control={control}
+                      render={({ field }) => (
+                        <CounterInput
+                          label="Passengers"
+                          value={field.value}
+                          min={1}
+                          max={8}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="luggage_count"
+                      control={control}
+                      render={({ field }) => (
+                        <CounterInput
+                          label="Luggage pieces"
+                          value={field.value}
+                          min={0}
+                          max={10}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </section>
+
+              {/* Trip Options */}
+              <section className="rounded-2xl border border-warm bg-cream p-6 shadow-sm">
+                <h2 className="mb-5 font-display text-xl font-semibold text-ink">Trip Options</h2>
+                <div className="space-y-5">
+                  <Controller
+                    name="is_round_trip"
+                    control={control}
+                    render={({ field }) => (
+                      <Toggle
+                        label="Round Trip"
+                        description="Include a return journey at a discounted rate"
+                        checked={field.value}
                         onChange={field.onChange}
                       />
                     )}
                   />
                   <Controller
-                    name="luggage_count"
+                    name="is_vip"
                     control={control}
                     render={({ field }) => (
-                      <CounterInput
-                        label="Luggage pieces"
-                        value={field.value}
-                        min={0}
-                        max={10}
+                      <Toggle
+                        label="VIP Service"
+                        description="Premium vehicle, complimentary water, priority service"
+                        checked={field.value}
                         onChange={field.onChange}
                       />
                     )}
                   />
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Trip Options */}
-            <section className="rounded-xl border border-zinc-200 bg-white p-6">
-              <h2 className="mb-4 font-semibold text-zinc-900">Trip Options</h2>
-              <div className="space-y-4">
-                <Controller
-                  name="is_round_trip"
-                  control={control}
-                  render={({ field }) => (
-                    <Toggle
-                      label="Round Trip"
-                      description="Include a return journey at a discounted rate"
-                      checked={field.value}
-                      onChange={field.onChange}
+              {/* Extras */}
+              {extras.length > 0 && (
+                <section className="rounded-2xl border border-warm bg-cream p-6 shadow-sm">
+                  <h2 className="mb-5 font-display text-xl font-semibold text-ink">Extras</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {extras.map(extra => (
+                      <PillToggle
+                        key={extra.id}
+                        label={`${extra.name} — €${extra.price}`}
+                        selected={watchedValues.extras.some(e => e.extra_id === extra.id)}
+                        onToggle={() => toggleExtra(extra.id)}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Personal Info */}
+              <section className="rounded-2xl border border-warm bg-cream p-6 shadow-sm">
+                <h2 className="mb-5 font-display text-xl font-semibold text-ink">Your Details</h2>
+                <div className="space-y-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Input
+                      label="First name"
+                      required
+                      autoComplete="given-name"
+                      {...register('customer_name')}
+                      error={errors.customer_name?.message}
                     />
-                  )}
-                />
-                <Controller
-                  name="is_vip"
-                  control={control}
-                  render={({ field }) => (
-                    <Toggle
-                      label="VIP Service"
-                      description="Premium vehicle, complimentary water, priority service"
-                      checked={field.value}
-                      onChange={field.onChange}
+                    <Input
+                      label="Last name"
+                      required
+                      autoComplete="family-name"
+                      {...register('customer_surname')}
+                      error={errors.customer_surname?.message}
                     />
-                  )}
-                />
-              </div>
-            </section>
-
-            {/* Extras */}
-            <section className="rounded-xl border border-zinc-200 bg-white p-6">
-              <h2 className="mb-4 font-semibold text-zinc-900">Extras</h2>
-              <div className="flex flex-wrap gap-2">
-                {extras.map(extra => (
-                  <PillToggle
-                    key={extra.id}
-                    label={`${extra.name} — €${extra.price}`}
-                    selected={watchedValues.extras.some(e => e.extra_id === extra.id)}
-                    onToggle={() => toggleExtra(extra.id)}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* Personal Info */}
-            <section className="rounded-xl border border-zinc-200 bg-white p-6">
-              <h2 className="mb-4 font-semibold text-zinc-900">Your Details</h2>
-              <div className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Input
+                      label="Email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      {...register('customer_email')}
+                      error={errors.customer_email?.message}
+                    />
+                    <Input
+                      label="Phone"
+                      type="tel"
+                      required
+                      autoComplete="tel"
+                      placeholder="+357 99 000000"
+                      {...register('customer_phone')}
+                      error={errors.customer_phone?.message}
+                    />
+                  </div>
                   <Input
-                    label="First name"
-                    required
-                    autoComplete="given-name"
-                    {...register('customer_name')}
-                    error={errors.customer_name?.message}
+                    label="ID / Passport number"
+                    {...register('customer_id_passport')}
                   />
-                  <Input
-                    label="Last name"
-                    required
-                    autoComplete="family-name"
-                    {...register('customer_surname')}
-                    error={errors.customer_surname?.message}
+                  <Textarea
+                    label="Notes"
+                    placeholder="Flight number, special requests..."
+                    {...register('notes')}
                   />
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Input
-                    label="Email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    {...register('customer_email')}
-                    error={errors.customer_email?.message}
-                  />
-                  <Input
-                    label="Phone"
-                    type="tel"
-                    required
-                    autoComplete="tel"
-                    placeholder="+357 99 000000"
-                    {...register('customer_phone')}
-                    error={errors.customer_phone?.message}
-                  />
+              </section>
+
+              {/* Payment */}
+              <section className="rounded-2xl border border-warm bg-cream p-6 shadow-sm">
+                <h2 className="mb-5 font-display text-xl font-semibold text-ink">Payment</h2>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {(['cash', 'online'] as const).map(type => (
+                    <label
+                      key={type}
+                      className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 p-4 transition-all ${
+                        watchedValues.payment_type === type
+                          ? 'border-gold bg-gold-pale'
+                          : 'border-warm bg-white hover:border-gold/40'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        value={type}
+                        className="sr-only"
+                        {...register('payment_type')}
+                      />
+                      <div
+                        className={`size-4 shrink-0 rounded-full border-2 transition-colors ${
+                          watchedValues.payment_type === type
+                            ? 'border-gold bg-gold'
+                            : 'border-warm bg-white'
+                        }`}
+                      />
+                      <div>
+                        <p className="font-semibold capitalize text-ink">{type}</p>
+                        <p className="text-xs text-clay">
+                          {type === 'cash'
+                            ? 'Pay the driver on arrival'
+                            : 'Secure online payment via Stripe'}
+                        </p>
+                      </div>
+                    </label>
+                  ))}
                 </div>
-                <Input
-                  label="ID / Passport number"
-                  {...register('customer_id_passport')}
-                />
-                <Textarea
-                  label="Notes"
-                  placeholder="Flight number, special requests..."
-                  {...register('notes')}
-                />
-              </div>
-            </section>
+              </section>
 
-            {/* Payment */}
-            <section className="rounded-xl border border-zinc-200 bg-white p-6">
-              <h2 className="mb-4 font-semibold text-zinc-900">Payment</h2>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {(['cash', 'online'] as const).map(type => (
-                  <label
-                    key={type}
-                    className={`flex cursor-pointer items-center gap-3 rounded-lg border-2 p-4 transition-colors ${
-                      watchedValues.payment_type === type
-                        ? 'border-zinc-900 bg-zinc-50'
-                        : 'border-zinc-200 hover:border-zinc-300'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      value={type}
-                      className="sr-only"
-                      {...register('payment_type')}
-                    />
-                    <div>
-                      <p className="font-medium capitalize text-zinc-900">{type}</p>
-                      <p className="text-xs text-zinc-500">
-                        {type === 'cash' ? 'Pay the driver on arrival' : 'Secure online payment via Stripe'}
-                      </p>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </section>
+              {submitError && (
+                <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                  {submitError}
+                </div>
+              )}
+            </div>
 
-            {submitError && (
-              <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                {submitError}
-              </div>
-            )}
-          </div>
-
-          {/* Sticky price sidebar */}
-          <div className="lg:sticky lg:top-6 lg:self-start">
-            <PriceSummary
-              route={selectedRoute}
-              isRoundTrip={watchedValues.is_round_trip}
-              isVip={watchedValues.is_vip}
-              extras={watchedValues.extras}
-              allExtras={extras}
-              submitting={submitting}
-            />
+            {/* Sticky price sidebar */}
+            <div className="lg:sticky lg:top-24 lg:self-start">
+              <PriceSummary
+                route={selectedRoute}
+                isRoundTrip={watchedValues.is_round_trip}
+                isVip={watchedValues.is_vip}
+                extras={watchedValues.extras}
+                allExtras={extras}
+                submitting={submitting}
+              />
+            </div>
           </div>
         </div>
       </div>

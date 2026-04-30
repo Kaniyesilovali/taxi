@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist);
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-dm-sans);
+
+  --color-night: #0c1a2e;
+  --color-gold: #c8922a;
+  --color-gold-dark: #a37120;
+  --color-gold-pale: #fef3d8;
+  --color-sand: #f4ece0;
+  --color-cream: #fdf9f4;
+  --color-ink: #1c1208;
+  --color-clay: #7a6040;
+  --color-warm: #e3d0b8;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
