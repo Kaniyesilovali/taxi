@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Select } from '@/components/ui/select'
 import { ArrowLeftRight } from 'lucide-react'
 import type { Route } from '@/lib/types'
@@ -12,22 +12,20 @@ interface RouteSelectorProps {
 }
 
 export function RouteSelector({ routes, value, onChange, error }: RouteSelectorProps) {
-  const [selectedPickup, setSelectedPickup] = useState('')
+  const [localPickup, setLocalPickup] = useState('')
+
+  // When a route is selected, derive pickup from it; otherwise use local state
+  const selectedPickup = value
+    ? (routes.find(r => r.id === value)?.pickup_location ?? localPickup)
+    : localPickup
 
   const pickups = [...new Set(routes.map(r => r.pickup_location))].sort()
   const dropoffOptions = routes
     .filter(r => r.pickup_location === selectedPickup)
     .map(r => ({ value: r.id, label: r.dropoff_location }))
 
-  useEffect(() => {
-    if (value) {
-      const route = routes.find(r => r.id === value)
-      if (route) setSelectedPickup(route.pickup_location)
-    }
-  }, [value, routes])
-
   function handlePickupChange(pickup: string) {
-    setSelectedPickup(pickup)
+    setLocalPickup(pickup)
     onChange('')
   }
 
