@@ -7,7 +7,7 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
       <header className="sticky top-0 z-50 border-b border-white/5 bg-night">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link
-            href="/"
+            href="/en"
             className="font-display text-2xl font-light italic tracking-wide text-white transition-opacity hover:opacity-75"
           >
             Taxsi
