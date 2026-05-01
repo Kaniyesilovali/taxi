@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "book": "Transfer Rezervasyonu",
+    "routes": "Güzergahlar & Fiyatlar",
+    "track": "Rezervasyonu Takip Et",
+    "blog": "Blog",
+    "about": "Hakkımızda",
+    "contact": "İletişim"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Kıbrıs Havalimanı Transferleri",
+      "subtitle": "Sabit fiyatlar. Sürpriz yok. Dakikalar içinde rezervasyon.",
+      "cta": "Transfer Rezervasyonu Yap"
+    },
+    "why": {
+      "title": "Neden Taxsi?",
+      "items": [
+        { "title": "Sabit Fiyatlar", "desc": "Sayaç yok, sürpriz yok. Gördüğünüz fiyat ödediğiniz fiyattır." },
+        { "title": "Profesyonel Sürücüler", "desc": "Lisanslı, deneyimli ve Kıbrıs yollarını bilen sürücüler." },
+        { "title": "7/24 Hizmet", "desc": "Sabahın erken saatlerinde veya gece geç saatte — her zaman buradayız." },
+        { "title": "Anında Onay", "desc": "Online rezervasyon yapın, e-posta ve SMS ile onayınızı hemen alın." }
+      ]
+    },
+    "routes": {
+      "title": "Popüler Güzergahlar",
+      "viewAll": "Tüm güzergahları gör →"
+    },
+    "howItWorks": {
+      "title": "Nasıl Çalışır?",
+      "steps": [
+        { "title": "Online Rezervasyon", "desc": "Güzergah, tarih ve yolcu bilgilerini doldurun. 2 dakika sürer." },
+        { "title": "Sürücü Atanır", "desc": "Profesyonel bir sürücü atarız ve bilgilerini SMS ile göndeririz." },
+        { "title": "Transfer Tamamlanır", "desc": "Sürücünüz terminalde sizi karşılar ve hedefinize götürür." }
+      ]
+    },
+    "cta": {
+      "title": "Hazır mısınız?",
+      "subtitle": "Tüm Kıbrıs güzergahlarında sabit fiyatlar.",
+      "button": "Transfer Rezervasyonu Yap"
+    }
+  },
+  "routes": {
+    "title": "Güzergahlar & Fiyatlar",
+    "subtitle": "Tüm Kıbrıs havalimanı transfer güzergahlarında sabit fiyatlar.",
+    "oneWay": "Tek Yön",
+    "roundTrip": "Gidiş-Dönüş",
+    "bookRoute": "Bu Güzergahı Rezerve Et"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "subtitle": "Güvenebileceğiniz Kıbrıs havalimanı transferleri.",
+    "story": {
+      "title": "Hikayemiz",
+      "body": "Taxsi, basit bir sorunu çözmek için kuruldu: Kıbrıs'ta havalimanı transferleri güvensiz ve stresli oluyordu. Durmayan taksimetreler, yolları bilmeyen sürücüler, sürekli değişen fiyatlar. Bunları düzeltmek için Taxsi'yi inşa ettik — sabit fiyatlar, profesyonel sürücüler ve çalışan bir rezervasyon sistemi."
+    },
+    "mission": {
+      "title": "Misyonumuz",
+      "body": "Her Kıbrıs havalimanı transferini kolay hale getirmek. Siz rezervasyon yapın, biz geliriz. Stres yok, sürpriz yok."
+    },
+    "values": {
+      "title": "Değerlerimiz",
+      "items": [
+        { "title": "Şeffaflık", "desc": "Gördüğünüz fiyat, ödediğiniz fiyattır. Her zaman." },
+        { "title": "Güvenilirlik", "desc": "Uçuşunuzu takip ederiz. Gecikirseniz, sürücünüz bekler." },
+        { "title": "Profesyonellik", "desc": "Her sürücü lisanslı, deneyimli ve Kıbrıs yollarını biliyor." }
+      ]
+    },
+    "cta": "Transfer Rezervasyonu Yap"
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "Kıbrıs transferiniz için yardımcı olmaya hazırız.",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-posta",
+    "whatsappLabel": "WhatsApp",
+    "form": {
+      "title": "Mesaj Gönderin",
+      "name": "Adınız",
+      "emailField": "E-posta adresiniz",
+      "message": "Mesajınız",
+      "submit": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "success": "Mesajınız gönderildi! En kısa sürede size dönüş yapacağız.",
+      "error": "Bir hata oluştu. Lütfen tekrar deneyin veya bizi arayın."
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Kıbrıs'ta seyahat hakkında ipuçları, rehberler ve haberler.",
+    "readMore": "Devamını oku →",
+    "backToBlog": "← Bloga Dön",
+    "bookCta": "Transfer rezervasyonu yapmak ister misiniz? →",
+    "noPosts": "Bu dilde henüz yazı bulunmuyor."
+  },
+  "faq": {
+    "title": "Sık Sorulan Sorular",
+    "subtitle": "Taxsi transferleri hakkında bilmeniz gereken her şey.",
+    "sections": [
+      {
+        "title": "Rezervasyon",
+        "items": [
+          { "q": "Transfer nasıl rezerve edilir?", "a": "Web sitemizde güzergah, tarih, saat ve yolcu bilgilerinizi doldurun. Onayınızı e-posta ve SMS ile hemen alacaksınız." },
+          { "q": "Rezervasyonumu iptal veya değiştirebilir miyim?", "a": "Mümkün olan en kısa sürede telefon veya e-posta ile iletişime geçin. Transferden 24 saat önce yapılan iptallerde tam iade yapılır." },
+          { "q": "Ne kadar önceden rezervasyon yapmalıyım?", "a": "En az 24 saat önceden rezervasyon yapmanızı öneririz. Yoğun sezonda (Temmuz–Eylül) ve sabah erken uçuşlar için daha erken tercih edilmelidir." }
+        ]
+      },
+      {
+        "title": "Ödeme",
+        "items": [
+          { "q": "Hangi ödeme yöntemlerini kabul ediyorsunuz?", "a": "Nakit (varışta sürücüye) ve online ödeme (Stripe ile güvenli kart ödemesi) kabul ediyoruz." },
+          { "q": "Fiyata neler dahil?", "a": "Transfer, otoyol ücretleri, park ve havalimanında 45 dakikaya kadar bekleme süresi fiyata dahildir." },
+          { "q": "Online ödeme güvenli mi?", "a": "Evet. Ödemeler PCI-DSS Seviye 1 sertifikalı Stripe tarafından işlenir. Kart bilgilerinizi asla saklamıyoruz." }
+        ]
+      },
+      {
+        "title": "Transfer Günü",
+        "items": [
+          { "q": "Sürücümü nasıl tanıyacağım?", "a": "Sürücünüz geliş salonunda adınızın yazılı olduğu bir tabelayla sizi bekleyecek. Adını, telefonunu ve araç bilgilerini SMS ile alacaksınız." },
+          { "q": "Uçuşum gecikirse ne olur?", "a": "Uçuş varışlarını takip ederiz. Uçuşunuz gecikirse sürücünüz ek ücret ödemeden bekler." },
+          { "q": "Rezervasyonumu takip edebilir miyim?", "a": "Evet. Rezervasyon kodunuzla Rezervasyon Takip sayfasını kullanabilirsiniz." }
+        ]
+      },
+      {
+        "title": "Araçlar",
+        "items": [
+          { "q": "Araçlar kaç yolcu alır?", "a": "Standart araçlar standart bagajlı 4 yolcuya kadar uygundur. Rezervasyonda yolcu sayınızı belirtin." },
+          { "q": "VIP transfer var mı?", "a": "Evet. Rezervasyon sırasında VIP seçeneğini işaretleyin; premium araç, ikramlık su ve öncelikli hizmet içerir." },
+          { "q": "Çocuk kolluğu isteyebilir miyim?", "a": "Evet. Rezervasyonda Çocuk Koltuğu ekstrası seçin ve notlar alanında çocuğun yaşını belirtin." }
+        ]
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "lastUpdated": "Son güncelleme: 1 Mayıs 2026"
+  },
+  "terms": {
+    "title": "Kullanım Koşulları",
+    "lastUpdated": "Son güncelleme: 1 Mayıs 2026"
+  },
+  "footer": {
+    "tagline": "Kıbrıs Havalimanı Transferleri",
+    "copyright": "© {year} Taxsi · Kıbrıs Havalimanı Transferleri"
+  }
+}
