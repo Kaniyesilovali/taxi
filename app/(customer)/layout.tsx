@@ -7,7 +7,7 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
       <header className="sticky top-0 z-50 border-b border-white/5 bg-night">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link
-            href="/"
+            href="/en"
             aria-label="Taxsi — Cyprus Airport Transfers"
             className="font-display text-2xl font-light italic tracking-wide text-white transition-opacity hover:opacity-75"
           >
@@ -16,7 +16,7 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
 
           <nav aria-label="Main navigation" className="hidden items-center gap-7 sm:flex">
             <Link
-              href="/"
+              href="/en/book"
               className="text-sm font-medium text-white/60 transition-colors hover:text-white"
             >
               Book Transfer
