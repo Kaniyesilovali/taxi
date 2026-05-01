@@ -1,6 +1,7 @@
 # Admin Panel — Design Specification
 
 **Date:** 2026-04-30
+**Last updated:** 2026-05-01 — added Payouts page, Driver detail page, driver-level payout tracking
 **Scope:** Frontend admin panel only (`frontend/app/(admin)/`)
 **Depends on:** [2026-04-28-taxsi-platform-design.md](./2026-04-28-taxsi-platform-design.md)
 
@@ -8,7 +9,9 @@
 
 ## 1. Overview
 
-Six-page admin panel for Taxsi. Protected by JWT auth. Admins manage bookings (assign drivers), configure routes/extras, manage driver accounts, and view revenue.
+Seven-page admin panel for Taxsi. Protected by JWT auth (single `admin` role — no RBAC). Admins manage bookings (assign drivers), configure routes/extras, manage driver accounts, **record driver payouts**, and view revenue.
+
+The biggest operational goal is **driver payout management**: every month, the admin needs to see which driver completed how many trips, how much they earned, how much was already paid out, and what is still pending — then record the payment.
 
 **Visual style:** Luxury Dark — night blue (`#0c1a2e`) + gold (`#c8922a`), consistent with the customer portal brand but adapted for dense data display.
 
@@ -42,7 +45,11 @@ frontend/
 │           ├── extras/
 │           │   └── page.tsx
 │           ├── drivers/
-│           │   └── page.tsx
+│           │   ├── page.tsx
+│           │   └── [id]/
+│           │       └── page.tsx              ← driver detail (monthly summary + bookings + payouts tabs)
+│           ├── payouts/
+│           │   └── page.tsx                  ← payout creation + history
 │           └── revenue/
 │               └── page.tsx
 ├── components/
@@ -63,7 +70,16 @@ frontend/
 │       │   └── extra-form.tsx
 │       ├── drivers/
 │       │   ├── drivers-table.tsx
-│       │   └── driver-form.tsx
+│       │   ├── driver-form.tsx
+│       │   ├── driver-summary-cards.tsx     ← 4 stat cards on detail page
+│       │   ├── driver-bookings-tab.tsx
+│       │   └── driver-payouts-tab.tsx
+│       ├── payouts/
+│       │   ├── payout-create-panel.tsx       ← top half: filter + calculate + booking list + form
+│       │   ├── payout-bookings-checklist.tsx ← booking selection table inside create panel
+│       │   ├── payouts-history-table.tsx     ← bottom half: past payouts
+│       │   ├── payout-detail-sheet.tsx       ← slide-over showing payout's bookings
+│       │   └── payment-method-badge.tsx
 │       ├── revenue/
 │       │   ├── revenue-chart.tsx
 │       │   └── revenue-filters.tsx
@@ -79,6 +95,7 @@ frontend/
 │   │   ├── routes.ts
 │   │   ├── extras.ts
 │   │   ├── drivers.ts
+│   │   ├── payouts.ts              ← driver payout API
 │   │   ├── revenue.ts
 │   │   └── auth.ts
 │   ├── mock/
@@ -86,6 +103,7 @@ frontend/
 │   │   ├── routes.ts
 │   │   ├── extras.ts
 │   │   ├── drivers.ts
+│   │   ├── payouts.ts              ← mock payout records + calculation helper
 │   │   └── revenue.ts
 │   └── types/
 │       └── admin.ts                ← shared TypeScript types
@@ -149,11 +167,22 @@ deleteExtra(id: string): Promise<void>
 
 **`lib/api/drivers.ts`**
 ```ts
-getDrivers(): Promise<Driver[]>
+getDrivers(): Promise<Driver[]>                        // each driver includes pendingPayoutAmount
 getDriver(id: string): Promise<Driver>
+getDriverSummary(id: string, month: string): Promise<DriverMonthlySummary>  // month: YYYY-MM
 createDriver(body: DriverBody): Promise<Driver>
 updateDriver(id: string, body: Partial<DriverBody>): Promise<Driver>
 deleteDriver(id: string): Promise<void>
+```
+
+**`lib/api/payouts.ts`**
+```ts
+calculatePayout(driverId: string, periodStart: string, periodEnd: string): Promise<PayoutCalculation>
+createPayout(body: CreatePayoutBody): Promise<DriverPayout>
+getPayouts(filters: PayoutFilters): Promise<PaginatedResponse<DriverPayout>>
+getPayout(id: string): Promise<DriverPayout>
+deletePayout(id: string): Promise<void>
+exportPayoutsCSV(filters: PayoutFilters): Promise<Blob>   // returns CSV blob; UI triggers download
 ```
 
 **`lib/api/revenue.ts`**
@@ -171,7 +200,7 @@ getRevenueStats(filters: RevenueFilters): Promise<RevenueStats>
 
 **Sidebar:**
 - Taxsi logo + "Admin" label at top
-- Nav items: Dashboard, Bookings (with pending count badge), Routes, Extras, Drivers, Revenue
+- Nav items (in order): Dashboard, Bookings (with pending count badge), Routes, Extras, Drivers, **Payouts**, Revenue
 - Active state: gold left border + gold text
 - Logout button at bottom
 - Nav items use Next.js `Link`, active state detected via `usePathname()`
@@ -273,9 +302,10 @@ Actions per row:
 
 ### Drivers (`/admin/drivers`)
 
-**Table:** Name, Surname, Email, Phone, Status badge, Actions
+**Table:** Name, Surname, Email, Phone, Status badge, **Pending Payout (€)**, Actions
 **Status:** active (green) / inactive (amber)
-**Actions:** Edit, Delete
+**Pending Payout:** sum of `driverAmount` for completed bookings not yet included in any payout. Gold text when > 0. Clicking the cell navigates to `/admin/payouts?driverId=<id>` (pre-filtered).
+**Actions:** **Detail** (→ `/admin/drivers/[id]`), Edit, Delete
 
 **"New Driver" button**
 
@@ -283,8 +313,116 @@ Actions per row:
 - First name, Last name
 - Email (unique, used for login)
 - Phone
+- **IBAN** (optional, free text — stored as-is, used as snapshot when creating payouts)
+- **Bank name** (optional)
 - Password (only shown on create; edit leaves password unchanged unless filled)
 - Status toggle (active/inactive)
+
+---
+
+### Driver Detail (`/admin/drivers/[id]`)
+
+Driver-level monthly view. Used by admin to inspect a single driver's activity and prepare/review payouts.
+
+**Page header:** Driver name + status badge + "Edit" button (opens driver-form sheet) + "New Payout" CTA (gold) on the right.
+
+**Month selector:** Above the stat cards. Default = current month. Previous-month navigation chevrons.
+
+**Stat cards (4):**
+| Card | Value |
+|---|---|
+| Bu ay tamamlanan | `completedBookingCount` |
+| Bu ay hak edilen | `earnedAmount` (€) |
+| Bu ay ödenen | `paidAmount` (€) |
+| Bekleyen ödeme | `pendingAmount` (€), gold |
+
+Data: `getDriverSummary(id, month)`. TanStack Query, refetch on month change.
+
+**Driver info card:** Read-only. Name, email, phone, IBAN, bank name, status, joined date.
+
+**Tabs (shadcn Tabs):**
+
+1. **Bookings tab** — Table of bookings assigned to this driver (any status, filtered to selected month by default — month selector also drives this).
+   - Columns: Ref, Date/Time, Route, Customer, Driver Amount, Status badge, **Payout Status badge** ("Ödendi" green if `payoutId` set, "Bekliyor" amber if completed and unpaid, "—" muted otherwise)
+   - Filters: date range (overrides month selector), payout status (paid / unpaid / all)
+   - Pagination: 20 rows per page
+
+2. **Payouts tab** — Past payout records for this driver.
+   - Columns: Paid At, Period (e.g., "01–31 Mart 2026"), Amount, Booking count, Payment method, Note (truncated), Actions
+   - Action: "Detail" (opens `payout-detail-sheet.tsx` showing all bookings in that payout)
+   - No pagination needed initially (most drivers will have <50 payout records over the lifetime)
+
+The "New Payout" CTA navigates to `/admin/payouts?driverId=<id>&autoCalc=1` — Payouts page opens with this driver pre-selected and the calculation triggered automatically.
+
+---
+
+### Payouts (`/admin/payouts`)
+
+The driver payout management page. Two stacked sections: **create new payout** (top) and **history** (bottom).
+
+#### Create panel (top)
+
+**Filters bar:**
+- **Driver** select (required, active drivers only)
+- **Period start** date picker (default: 1st of current month)
+- **Period end** date picker (default: today)
+- **"Hesapla"** button (gold)
+
+URL params `driverId` and `autoCalc=1` (when arriving from driver detail) pre-populate the form and auto-trigger calculation on mount.
+
+On click, calls `calculatePayout(driverId, periodStart, periodEnd)`. Returns the driver's `completed` bookings in that range that are **not yet attached to any payout**. Renders:
+
+**Summary card:**
+- Booking count
+- Toplam hak ediş (sum of `driverAmount`)
+- Önerilen ödeme tutarı (= toplam hak ediş; updates when checkboxes change or override is edited)
+
+**Booking checklist table (`payout-bookings-checklist.tsx`):**
+- Header checkbox (select all / none)
+- Per-row: checkbox (default checked), Ref, Date/Time, Route, Customer, driverAmount
+- Unchecking a row removes its `driverAmount` from the suggested total
+
+**Payment form (below the checklist):**
+- **Tutar (€)** — number input, default = suggested amount, admin can override (e.g., to deduct damages). Must be > 0.
+- **Not** — textarea, optional (e.g., "100€ kesinti: 12 Mart hasar")
+- **Ödeme yöntemi** — select: Banka havalesi / Elden / Diğer
+- **"Ödendi olarak kaydet"** — submit button
+
+On submit: calls `createPayout({ driverId, periodStart, periodEnd, amount, bookingIds, note, paymentMethod })`. Backend snapshots the driver's current `iban` and `bankName` into the payout record. On success:
+1. Toast: "€X ödendi olarak kaydedildi"
+2. Reset the create panel
+3. Invalidate `payouts` and `drivers` queries (Drivers table's pending-payout column refreshes)
+
+#### History (bottom)
+
+**Filters:**
+- Driver select (optional — "All drivers" by default; respects `?driverId=` URL param)
+- Date range (over `paidAt`)
+- "CSV indir" button — calls `exportPayoutsCSV(filters)`, downloads a CSV of the filtered records
+
+**Table:**
+| Column | Content |
+|---|---|
+| Ödeme Tarihi | `paidAt` formatted |
+| Sürücü | `driver.name surname` |
+| Dönem | `periodStart – periodEnd` |
+| Booking | count (e.g., "12") |
+| Tutar | `amount €` |
+| Yöntem | payment-method-badge |
+| Aksiyon | "Detay" + "Sil" |
+
+**Pagination:** 20 per page, server-side.
+
+**"Detay"** opens `payout-detail-sheet.tsx` (slide-over): full payout info — driver, period, amount, note, payment method, IBAN snapshot, bank name snapshot, plus a table of all bookings included in the payout (Ref, Date, Route, driverAmount).
+
+**"Sil"** opens confirm-dialog: "Bu ödeme kaydı silinecek, içerdiği {N} booking 'ödenmemiş' duruma dönecek." On confirm, calls `deletePayout(id)`. Hard delete (no soft-delete in MVP). Bookings become eligible for inclusion in a future payout.
+
+#### Edge case rules
+
+- A booking can be included in **at most one** payout. The `calculatePayout` endpoint filters out bookings that already have a `payoutId`.
+- Override `amount` must be > 0 (no zero or negative payouts — admin should delete instead).
+- Inactive drivers cannot have new payouts created (driver select hides them), but existing payouts for inactive drivers remain visible/deletable.
+- Currency is always EUR. No multi-currency in MVP.
 
 ---
 
@@ -340,6 +478,7 @@ type BookingStatus = 'pending' | 'assigned' | 'in_progress' | 'completed' | 'can
 type PaymentType = 'cash' | 'online'
 type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded'
 type DriverStatus = 'active' | 'inactive'
+type PaymentMethod = 'bank_transfer' | 'cash' | 'other'
 
 interface Booking {
   id: string
@@ -374,6 +513,8 @@ interface Booking {
   extras: BookingExtra[]
   assignedAt: string | null
   completedAt: string | null
+  payoutId: string | null       // set when included in a driver_payout; null if unpaid/not applicable
+  isPaidToDriver: boolean       // server-derived: payoutId !== null
   createdAt: string
   updatedAt: string
 }
@@ -410,8 +551,65 @@ interface Driver {
   surname: string
   email: string
   phone: string
+  iban: string | null
+  bankName: string | null
   status: DriverStatus
+  pendingPayoutAmount: number   // server-computed: sum of driverAmount for completed, unpaid bookings
   createdAt: string
+}
+
+interface DriverMonthlySummary {
+  driver: Driver
+  month: string                 // YYYY-MM
+  completedBookingCount: number
+  earnedAmount: number          // sum of driverAmount across completed bookings in the month
+  paidAmount: number            // sum of payouts paid in the month (paidAt within month)
+  pendingAmount: number         // earnedAmount - (driverAmount sum of paid bookings in the month)
+  bookings: Booking[]
+}
+
+interface DriverPayout {
+  id: string
+  driverId: string
+  driver: Driver
+  periodStart: string           // ISO date
+  periodEnd: string             // ISO date
+  amount: number                // EUR — admin-overridable; defaults to sum(driverAmount)
+  note: string | null
+  paymentMethod: PaymentMethod
+  ibanSnapshot: string | null   // captured at payout creation time
+  bankNameSnapshot: string | null
+  bookingIds: string[]
+  bookings: Booking[]           // joined for detail view
+  paidAt: string                // ISO datetime
+  createdBy: string             // admin user id
+  createdAt: string
+}
+
+interface PayoutCalculation {
+  driverId: string
+  periodStart: string
+  periodEnd: string
+  bookings: Booking[]           // unpaid completed bookings in range
+  suggestedAmount: number       // sum(driverAmount)
+  bookingCount: number
+}
+
+interface CreatePayoutBody {
+  driverId: string
+  periodStart: string
+  periodEnd: string
+  amount: number
+  bookingIds: string[]
+  note?: string
+  paymentMethod: PaymentMethod
+}
+
+interface PayoutFilters {
+  driverId?: string
+  from?: string                 // filters paidAt
+  to?: string
+  page?: number
 }
 
 interface DailyStat {
@@ -455,7 +653,7 @@ interface AssignDriverBody {
 
 type RouteBody = Omit<Route, 'id' | 'createdAt'>
 type ExtraBody = Omit<Extra, 'id'>
-type DriverBody = Omit<Driver, 'id' | 'createdAt'> & { password: string }
+type DriverBody = Omit<Driver, 'id' | 'createdAt' | 'pendingPayoutAmount'> & { password?: string }
 interface RevenueFilters { from: string; to: string; paymentType?: PaymentType }
 ```
 
@@ -498,7 +696,53 @@ Admin layout wraps content in `<div data-admin>` to scope these overrides away f
 ## 11. Out of Scope
 
 - Real-time updates (WebSocket) — polling only (30s dashboard, 60s nav badge)
-- Admin account management (password change, multiple admins)
+- Admin account management (password change, multiple admins, RBAC)
 - Booking creation from admin
-- Export to CSV/PDF
+- PDF export (CSV export only, for payouts)
 - NestJS backend implementation (separate spec)
+- Bank file export (SEPA XML) and payment-gateway integration (Stripe Connect) — payouts are recorded internally only
+- Soft-delete / audit history for deleted payouts — hard delete in MVP
+- Driver-side trip logging (km / fuel notes) — admin works from completed booking records only
+
+---
+
+## 12. Backend Contract for Payouts (informational — backend spec separate)
+
+This frontend will consume the API signatures defined in §4 and the types in §8. The eventual NestJS/Postgres implementation must satisfy these contracts. Suggested schema:
+
+```
+driver_payouts
+  id uuid pk
+  driver_id uuid fk drivers(id)
+  period_start date not null
+  period_end date not null
+  amount numeric(10,2) not null check (amount > 0)
+  note text null
+  payment_method text not null check (payment_method in ('bank_transfer','cash','other'))
+  iban_snapshot text null
+  bank_name_snapshot text null
+  paid_at timestamptz not null default now()
+  created_by uuid fk users(id)
+  created_at timestamptz not null default now()
+
+driver_payout_bookings  (join table — enforces the "one booking, one payout" rule)
+  payout_id uuid fk driver_payouts(id) on delete cascade
+  booking_id uuid fk bookings(id)
+  primary key (payout_id, booking_id)
+  unique (booking_id)
+```
+
+Additions to existing tables:
+- `drivers.iban text null`
+- `drivers.bank_name text null`
+
+`Booking.payoutId` and `Booking.isPaidToDriver` are derived server-side from a left join with `driver_payout_bookings` — not denormalized columns.
+
+Server-computed fields the frontend depends on:
+- `Driver.pendingPayoutAmount` — `SUM(b.driverAmount)` over completed bookings assigned to driver, where `b.id NOT IN (SELECT booking_id FROM driver_payout_bookings)`
+- `DriverMonthlySummary` — aggregations over the requested `month` (`YYYY-MM`) for `bookings.completedAt` and `driver_payouts.paidAt`
+
+CSV export format for `exportPayoutsCSV`:
+```
+paid_at,driver_name,driver_surname,iban,bank_name,period_start,period_end,booking_count,amount_eur,payment_method,note
+```
