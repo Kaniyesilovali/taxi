@@ -35,33 +35,37 @@ const content: Record<Locale, React.ReactNode> = {
   tr: (
     <>
       <h2>1. Topladığımız Veriler</h2>
-      <p>Rezervasyon yaptığınızda şunları topluyoruz: adınız, e-posta adresiniz, telefon numaranız ve isteğe bağlı olarak kimlik veya pasaport numaranız.</p>
+      <p>Rezervasyon yaptığınızda şunları topluyoruz: adınız, e-posta adresiniz, telefon numaranız ve isteğe bağlı olarak kimlik veya pasaport numaranız. Ayrıca yolculuk bilgilerinizi (güzergah, tarih, saat, yolcu sayısı) de kayıt altına alıyoruz.</p>
       <h2>2. Neden Topluyoruz</h2>
-      <p>Verilerinizi rezervasyonunuzu işlemek, sürücü atamak, e-posta ve SMS ile onay göndermek için kullanıyoruz.</p>
+      <p>Verilerinizi rezervasyonunuzu işlemek, sürücü atamak, e-posta ve SMS ile onay ve durum güncellemeleri göndermek ve ödeme işlemlerini yürütmek için kullanıyoruz.</p>
       <h2>3. Üçüncü Taraf Hizmetler</h2>
-      <p>Ödeme için <strong>Stripe</strong>, e-posta bildirimleri için <strong>SendGrid</strong>, SMS bildirimleri için <strong>Twilio</strong> kullanıyoruz.</p>
+      <p>Ödeme işlemleri için <strong>Stripe</strong>, e-posta bildirimleri için <strong>SendGrid</strong>, SMS bildirimleri için <strong>Twilio</strong> kullanıyoruz. Her hizmet, verilerinizi kendi gizlilik politikası kapsamında işler.</p>
       <h2>4. Çerezler</h2>
-      <p>Yalnızca sitenin çalışması için gerekli zorunlu çerezleri kullanıyoruz.</p>
+      <p>Yalnızca sitenin çalışması için gerekli zorunlu çerezleri kullanıyoruz. Takip veya reklam çerezi kullanmıyoruz.</p>
       <h2>5. Veri Saklama</h2>
-      <p>Rezervasyon verileri yasal uyumluluk amacıyla 3 yıl saklanır. Kişisel verilerinizin silinmesini isteyebilirsiniz.</p>
+      <p>Rezervasyon verileri muhasebe ve yasal uyumluluk amacıyla 3 yıl saklanır. Kişisel verilerinizin silinmesini istediğiniz zaman talep edebilirsiniz.</p>
       <h2>6. Haklarınız</h2>
       <p>Kişisel verilerinize erişme, düzeltme veya silme hakkınız vardır. <a href="mailto:privacy@taxsi.cy">privacy@taxsi.cy</a> adresinden iletişime geçin.</p>
+      <h2>7. İletişim</h2>
+      <p>Gizlilikle ilgili sorularınız için: <a href="mailto:privacy@taxsi.cy">privacy@taxsi.cy</a></p>
     </>
   ),
   ru: (
     <>
       <h2>1. Что мы собираем</h2>
-      <p>При бронировании мы собираем: ваше имя, email, номер телефона и, по желанию, номер удостоверения личности или паспорта.</p>
+      <p>При бронировании мы собираем: ваше имя, email, номер телефона и, по желанию, номер удостоверения личности или паспорта. Также мы фиксируем данные поездки (маршрут, дата, время, количество пассажиров).</p>
       <h2>2. Зачем мы это собираем</h2>
-      <p>Данные используются для обработки бронирования, назначения водителя, отправки подтверждений по email и SMS.</p>
+      <p>Данные используются для обработки бронирования, назначения водителя, отправки подтверждений и обновлений статуса по email и SMS, а также для проведения платежей.</p>
       <h2>3. Сторонние сервисы</h2>
-      <p>Мы используем <strong>Stripe</strong> для платежей, <strong>SendGrid</strong> для email-уведомлений, <strong>Twilio</strong> для SMS.</p>
+      <p>Мы используем <strong>Stripe</strong> для обработки платежей, <strong>SendGrid</strong> для email-уведомлений и <strong>Twilio</strong> для SMS. Каждый сервис обрабатывает ваши данные в рамках собственной политики конфиденциальности.</p>
       <h2>4. Файлы cookie</h2>
       <p>Мы используем только необходимые технические файлы cookie. Рекламные или трекинговые cookie не используются.</p>
       <h2>5. Хранение данных</h2>
-      <p>Данные о бронированиях хранятся 3 года. Вы можете запросить удаление своих данных в любое время.</p>
+      <p>Данные о бронированиях хранятся 3 года в целях бухгалтерского учёта и соблюдения законодательства. Вы можете запросить удаление своих данных в любое время.</p>
       <h2>6. Ваши права</h2>
       <p>Вы имеете право на доступ, исправление или удаление ваших данных. Напишите нам: <a href="mailto:privacy@taxsi.cy">privacy@taxsi.cy</a></p>
+      <h2>7. Контакты</h2>
+      <p>По вопросам конфиденциальности: <a href="mailto:privacy@taxsi.cy">privacy@taxsi.cy</a></p>
     </>
   ),
 }

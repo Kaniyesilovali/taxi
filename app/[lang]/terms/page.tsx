@@ -35,15 +35,15 @@ const content: Record<Locale, React.ReactNode> = {
       <h2>1. Hizmet Tanımı</h2>
       <p>Taxsi, Kıbrıs&apos;ta sabit fiyatlı havalimanı transfer hizmetleri sunar. Rezervasyon yaparak bu koşulları kabul etmiş olursunuz.</p>
       <h2>2. Rezervasyon ve Onay</h2>
-      <p>E-posta ve SMS ile rezervasyon numarası aldığınızda rezervasyonunuz onaylanmış olur.</p>
+      <p>E-posta ve SMS ile rezervasyon numarası aldığınızda rezervasyonunuz onaylanmış olur. İstisnai durumlarda rezervasyonu iptal etme hakkını saklı tutarız; bu durumda sizi derhal bilgilendirir ve tam iade yaparız.</p>
       <h2>3. İptal Politikası</h2>
       <p>Transferden 24 saatten fazla önce iptal: tam iade. 24 saat içinde iptal: iade yapılmaz. Gelmeme durumu: iade yapılmaz.</p>
       <h2>4. Ödeme</h2>
       <p>Online ödemeler Stripe üzerinden güvenli şekilde işlenir. Nakit ödemeler varışta sürücüye yapılır. Tüm fiyatlar Euro ve KDV dahildir.</p>
       <h2>5. Sorumluluk</h2>
-      <p>Taxsi, trafik, hava koşulları veya kontrolümüz dışındaki sebeplerden kaynaklanan gecikmelerden sorumlu değildir.</p>
+      <p>Taxsi, trafik, hava koşulları veya kontrolümüz dışındaki sebeplerden kaynaklanan gecikmelerden sorumlu değildir. Kaçırılan uçuş veya bağlantılardan da sorumlu tutulamayız.</p>
       <h2>6. Uygulanacak Hukuk</h2>
-      <p>Bu koşullar Kıbrıs Cumhuriyeti hukukuna tabidir.</p>
+      <p>Bu koşullar Kıbrıs Cumhuriyeti hukukuna tabidir. Doğacak uyuşmazlıklarda münhasıran Kıbrıs mahkemeleri yetkilidir.</p>
     </>
   ),
   ru: (
@@ -51,15 +51,15 @@ const content: Record<Locale, React.ReactNode> = {
       <h2>1. Описание услуги</h2>
       <p>Taxsi предоставляет услуги трансфера из аэропортов Кипра по фиксированным ценам. Оформляя бронирование, вы соглашаетесь с данными условиями.</p>
       <h2>2. Бронирование и подтверждение</h2>
-      <p>Бронирование считается подтверждённым после получения номера бронирования по email и SMS.</p>
+      <p>Бронирование считается подтверждённым после получения номера бронирования по email и SMS. Мы оставляем за собой право отменить бронирование в исключительных обстоятельствах; в этом случае мы немедленно уведомим вас и вернём полную сумму.</p>
       <h2>3. Политика отмены</h2>
       <p>Отмена более чем за 24 часа: полный возврат. Отмена менее чем за 24 часа: возврат не предусмотрен. Неявка: возврат не предусмотрен.</p>
       <h2>4. Оплата</h2>
       <p>Онлайн-платежи обрабатываются через Stripe. Наличные оплачиваются водителю по прибытии. Все цены в евро, включая НДС.</p>
       <h2>5. Ответственность</h2>
-      <p>Taxsi не несёт ответственности за задержки из-за дорожной обстановки, погоды или обстоятельств вне нашего контроля.</p>
+      <p>Taxsi не несёт ответственности за задержки из-за дорожной обстановки, погоды или обстоятельств вне нашего контроля. Мы также не отвечаем за пропущенные рейсы и стыковки.</p>
       <h2>6. Применимое право</h2>
-      <p>Настоящие условия регулируются законодательством Республики Кипр.</p>
+      <p>Настоящие условия регулируются законодательством Республики Кипр. Все споры подлежат исключительной юрисдикции судов Кипра.</p>
     </>
   ),
 }
