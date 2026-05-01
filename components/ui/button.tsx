@@ -7,16 +7,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  primary: 'bg-zinc-900 text-white hover:bg-zinc-700 disabled:bg-zinc-400',
-  secondary: 'border border-zinc-300 text-zinc-900 hover:bg-zinc-50 disabled:opacity-50',
-  ghost: 'text-zinc-600 hover:bg-zinc-100 disabled:opacity-50',
+  primary: 'bg-gold text-ink hover:bg-gold-dark disabled:bg-gold/40 disabled:text-ink/40',
+  secondary: 'border border-warm text-ink hover:bg-sand disabled:opacity-50',
+  ghost: 'text-clay hover:bg-sand disabled:opacity-50',
   danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-300',
 }
 
 const sizes = {
   sm: 'h-8 px-3 text-sm',
   md: 'h-10 px-4 text-sm',
-  lg: 'h-12 px-6 text-base',
+  lg: 'h-12 px-6 text-base font-semibold',
 }
 
 export function Button({
@@ -32,7 +32,7 @@ export function Button({
     <button
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors cursor-pointer',
+        'inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-colors cursor-pointer',
         variants[variant],
         sizes[size],
         className

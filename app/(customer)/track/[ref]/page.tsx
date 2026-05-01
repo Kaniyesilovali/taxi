@@ -11,8 +11,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { ref } = await params
   return {
-    title: `Track Booking — ${ref}`,
-    description: `Track the live status of your Taxsi airport transfer booking ${ref}.`,
+    title: `Track Your Booking — ${ref}`,
+    description: `Track the live status of your Taxsi Cyprus airport transfer. Booking reference: ${ref}.`,
     robots: { index: false, follow: false },
   }
 }
@@ -33,13 +33,14 @@ export default async function TrackPage({ params }: Props) {
       <div className="bg-night py-14">
         <div className="mx-auto max-w-2xl px-4 sm:px-6">
           <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/30">
-            Booking Reference
+            Booking Status
           </p>
           <h1 className="font-display text-4xl font-light italic text-white sm:text-5xl">
-            {booking.booking_ref}
+            Track Your Booking
           </h1>
           <p className="mt-2 text-base text-white/50">
-            {booking.customer_name} {booking.customer_surname}
+            {booking.customer_name} {booking.customer_surname} &middot;{' '}
+            <span className="font-medium text-white/70">{booking.booking_ref}</span>
           </p>
         </div>
       </div>

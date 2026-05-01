@@ -12,10 +12,10 @@ export function PillToggle({ label, selected, onToggle }: PillToggleProps) {
       type="button"
       onClick={onToggle}
       className={cn(
-        'rounded-full border px-4 py-2 text-sm font-medium transition-colors',
+        'rounded-full border px-4 py-2 text-sm font-medium transition-all',
         selected
-          ? 'border-zinc-900 bg-zinc-900 text-white'
-          : 'border-zinc-300 bg-white text-zinc-700 hover:border-zinc-500'
+          ? 'border-gold bg-gold text-ink shadow-sm'
+          : 'border-warm bg-white text-clay hover:border-gold/50 hover:bg-gold-pale'
       )}
     >
       {label}

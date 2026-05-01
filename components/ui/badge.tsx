@@ -1,12 +1,12 @@
 import { cn } from '@/lib/cn'
 
 const variants = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  assigned: 'bg-blue-100 text-blue-800',
-  in_progress: 'bg-purple-100 text-purple-800',
-  completed: 'bg-green-100 text-green-800',
-  cancelled: 'bg-red-100 text-red-800',
-  default: 'bg-zinc-100 text-zinc-800',
+  pending: 'bg-gold-pale text-clay border border-gold/20',
+  assigned: 'bg-blue-50 text-blue-700 border border-blue-200',
+  in_progress: 'bg-orange-50 text-orange-700 border border-orange-200',
+  completed: 'bg-green-50 text-green-700 border border-green-200',
+  cancelled: 'bg-red-50 text-red-700 border border-red-200',
+  default: 'bg-sand text-clay border border-warm',
 } as const
 
 type BadgeVariant = keyof typeof variants
@@ -21,7 +21,7 @@ export function Badge({ children, variant = 'default', className }: BadgeProps) 
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+        'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold',
         variants[variant],
         className
       )}

@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { ref } = await params
   return {
     title: `Booking Confirmed — ${ref}`,
-    description: `Your Taxsi airport transfer booking ${ref} is confirmed.`,
+    description: `Your Cyprus airport transfer booking ${ref} is confirmed. Track your transfer status or book a new trip.`,
     robots: { index: false, follow: false },
   }
 }
@@ -36,7 +36,7 @@ export default async function ConfirmPage({ params }: Props) {
             className="font-display text-4xl font-light italic text-white sm:text-5xl"
             style={{ animation: 'slide-up 0.7s ease both 0.1s' }}
           >
-            You&apos;re all set!
+            Booking Confirmed
           </h1>
           <p
             className="mt-3 text-base text-white/50"
@@ -143,13 +143,13 @@ export default async function ConfirmPage({ params }: Props) {
               href={`/track/${booking.booking_ref}`}
               className="flex h-12 flex-1 items-center justify-center rounded-xl bg-gold text-sm font-semibold text-ink transition-colors hover:bg-gold-dark"
             >
-              Track your booking
+              Track Your Booking
             </Link>
             <Link
               href="/"
               className="flex h-12 flex-1 items-center justify-center rounded-xl border border-warm bg-cream text-sm font-medium text-clay transition-colors hover:bg-sand"
             >
-              Book another transfer
+              Book Another Transfer
             </Link>
           </div>
         </div>

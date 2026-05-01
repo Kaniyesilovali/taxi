@@ -10,10 +10,17 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, error, className, id, required, ...props }, ref) => {
     const textareaId = id ?? label.toLowerCase().replace(/\s+/g, '-')
     return (
-      <div className="flex flex-col gap-1">
-        <label htmlFor={textareaId} className="text-sm font-medium text-zinc-700">
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor={textareaId}
+          className="text-xs font-semibold uppercase tracking-wider text-clay"
+        >
           {label}
-          {!required && <span className="ml-1 text-zinc-400">(optional)</span>}
+          {!required && (
+            <span className="ml-1 font-normal normal-case tracking-normal text-clay/60">
+              (optional)
+            </span>
+          )}
         </label>
         <textarea
           id={textareaId}
@@ -21,14 +28,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           required={required}
           rows={3}
           className={cn(
-            'rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 resize-none',
-            'focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-1',
-            error && 'border-red-500 focus:ring-red-500',
+            'rounded-xl border border-warm bg-white px-3 py-2.5 text-sm text-ink placeholder:text-clay/40 resize-none',
+            'focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold transition-colors',
+            error && 'border-red-400 focus:ring-red-400 focus:border-red-400',
             className
           )}
           {...props}
         />
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <p className="text-xs text-red-500">{error}</p>}
       </div>
     )
   }

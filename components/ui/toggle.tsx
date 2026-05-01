@@ -11,8 +11,8 @@ export function Toggle({ label, description, checked, onChange }: ToggleProps) {
   return (
     <label className="flex cursor-pointer items-center justify-between gap-4">
       <div>
-        <p className="text-sm font-medium text-zinc-900">{label}</p>
-        {description && <p className="text-xs text-zinc-500">{description}</p>}
+        <p className="text-sm font-medium text-ink">{label}</p>
+        {description && <p className="mt-0.5 text-xs text-clay">{description}</p>}
       </div>
       <div
         role="switch"
@@ -20,12 +20,12 @@ export function Toggle({ label, description, checked, onChange }: ToggleProps) {
         onClick={() => onChange(!checked)}
         className={cn(
           'relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors',
-          checked ? 'bg-zinc-900' : 'bg-zinc-300'
+          checked ? 'bg-gold' : 'bg-warm'
         )}
       >
         <span
           className={cn(
-            'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
+            'inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform',
             checked ? 'translate-x-6' : 'translate-x-1'
           )}
         />
