@@ -33,7 +33,7 @@ const content: Record<Locale, React.ReactNode> = {
   tr: (
     <>
       <h2>1. Hizmet Tanımı</h2>
-      <p>Taxsi, Kıbrıs'ta sabit fiyatlı havalimanı transfer hizmetleri sunar. Rezervasyon yaparak bu koşulları kabul etmiş olursunuz.</p>
+      <p>Taxsi, Kıbrıs&apos;ta sabit fiyatlı havalimanı transfer hizmetleri sunar. Rezervasyon yaparak bu koşulları kabul etmiş olursunuz.</p>
       <h2>2. Rezervasyon ve Onay</h2>
       <p>E-posta ve SMS ile rezervasyon numarası aldığınızda rezervasyonunuz onaylanmış olur.</p>
       <h2>3. İptal Politikası</h2>

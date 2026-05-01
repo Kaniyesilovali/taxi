@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from '@/app/[lang]/dictionaries'
-import { getPost, getPostsByLocale, posts } from '@/content/blog/posts'
+import { getPost, posts } from '@/content/blog/posts'
 
 interface Props {
   params: Promise<{ lang: string; slug: string }>

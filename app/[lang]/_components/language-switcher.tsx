@@ -1,6 +1,6 @@
 'use client'
 import { usePathname, useRouter } from 'next/navigation'
-import { locales, type Locale } from '@/app/[lang]/dictionaries'
+import { locales, type Locale } from '@/app/[lang]/locale'
 
 const labels: Record<Locale, string> = { en: 'EN', tr: 'TR', ru: 'RU' }
 
