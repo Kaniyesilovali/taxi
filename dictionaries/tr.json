@@ -70,6 +70,39 @@
         { "title": "Varışınızı yapın", "desc": "Terminalde karşılanır ve hedefinize götürülürsünüz. Başka hiçbir şey gerekmez." }
       ]
     },
+    "reviews": {
+      "eyebrow": "Yolcular ne diyor",
+      "title": "Kendi sözleriyle.",
+      "items": [
+        {
+          "quote": "Kabin kapımız açılmadan araç bizi bekliyordu. Şoför sormadan bagajları aldı. Kırk dakikada evdeydik.",
+          "author": "Anneke V.",
+          "origin": "Münih",
+          "context": "Sık seyahat eden"
+        },
+        {
+          "quote": "Sabah 1'de Londra'dan rezerve ettim, sabah 8'de Larnaca'da karşılandım. Uçak gecikmesinde fiyat hiç değişmedi. Karşılığını ödediğim şey budur.",
+          "author": "James P.",
+          "origin": "Londra",
+          "context": "Kurumsal misafir"
+        },
+        {
+          "quote": "Akdeniz'de dört farklı şoförlü hizmet kullandım. İkinci kez kullandığım tek hizmet bu.",
+          "author": "Sofia L.",
+          "origin": "Stockholm",
+          "context": "Aile yolculuğu"
+        }
+      ]
+    },
+    "trustedBy": {
+      "eyebrow": "Sessizce kanıtlandı",
+      "items": [
+        { "value": "1.400+", "label": "Tamamlanmış transfer" },
+        { "value": "4,9 / 5", "label": "Ortalama memnuniyet" },
+        { "value": "24 / 7", "label": "Çok dilli operasyon" },
+        { "value": "10+", "label": "Otel concierge ortağı" }
+      ]
+    },
     "corporate": {
       "eyebrow": "Kurumsal",
       "title": "İş seyahatleri, halledilmiş.",

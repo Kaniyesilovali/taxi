@@ -70,6 +70,39 @@
         { "title": "Arrive", "desc": "You are met at the terminal and driven to your destination. Nothing further required." }
       ]
     },
+    "reviews": {
+      "eyebrow": "What travellers say",
+      "title": "In their words.",
+      "items": [
+        {
+          "quote": "The car was waiting before our cabin door opened. The chauffeur took our bags without asking. We were home in forty minutes.",
+          "author": "Anneke V.",
+          "origin": "Munich",
+          "context": "Frequent traveller"
+        },
+        {
+          "quote": "Booked in London at 1 AM, met in Larnaca by 8. The fare did not move during a delayed flight. That is what I pay for.",
+          "author": "James P.",
+          "origin": "London",
+          "context": "Corporate guest"
+        },
+        {
+          "quote": "I have used four chauffeur services in the Mediterranean. This is the first one I used twice.",
+          "author": "Sofia L.",
+          "origin": "Stockholm",
+          "context": "Family travel"
+        }
+      ]
+    },
+    "trustedBy": {
+      "eyebrow": "Quietly proven",
+      "items": [
+        { "value": "1,400+", "label": "Transfers completed" },
+        { "value": "4.9 / 5", "label": "Average satisfaction" },
+        { "value": "24 / 7", "label": "Multilingual dispatch" },
+        { "value": "10+", "label": "Hotel concierge partners" }
+      ]
+    },
     "corporate": {
       "eyebrow": "For Business",
       "title": "Corporate travel, handled.",

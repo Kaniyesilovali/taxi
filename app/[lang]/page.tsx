@@ -6,6 +6,8 @@ import { Hero } from './_components/hero'
 import { TrustStrip } from './_components/trust-strip'
 import { WhyTaxsi } from './_components/why-taxsi'
 import { Fleet } from './_components/fleet'
+import { Reviews } from './_components/reviews'
+import { TrustedBy } from './_components/trusted-by'
 import { PopularRoutes } from './_components/popular-routes'
 import { HowItWorks } from './_components/how-it-works'
 import { Corporate } from './_components/corporate'
@@ -43,8 +45,10 @@ export default async function HomePage({ params }: Props) {
       <TrustStrip t={dict.homepage.trust} />
       <WhyTaxsi t={dict.homepage.why} />
       <Fleet t={dict.homepage.fleet} />
+      <Reviews t={dict.homepage.reviews} />
       <PopularRoutes lang={lang as Locale} t={dict.homepage.routes} routes={routes} />
       <HowItWorks t={dict.homepage.howItWorks} />
+      <TrustedBy t={dict.homepage.trustedBy} />
       <Corporate t={dict.homepage.corporate} />
       <CtaBanner lang={lang as Locale} t={dict.homepage.cta} />
     </>
