@@ -1,11 +1,13 @@
 {
   "nav": {
     "book": "Transfer Rezervasyonu",
+    "reserve": "Rezerve Et",
     "routes": "Güzergahlar & Fiyatlar",
     "track": "Rezervasyonu Takip Et",
     "blog": "Blog",
     "about": "Hakkımızda",
-    "contact": "İletişim"
+    "contact": "İletişim",
+    "whatsappAria": "WhatsApp ile bize ulaşın"
   },
   "homepage": {
     "meta": {

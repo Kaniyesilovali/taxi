@@ -1,11 +1,13 @@
 {
   "nav": {
     "book": "Book Transfer",
+    "reserve": "Reserve",
     "routes": "Routes & Prices",
     "track": "Track Booking",
     "blog": "Blog",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "whatsappAria": "Contact us on WhatsApp"
   },
   "homepage": {
     "meta": {
