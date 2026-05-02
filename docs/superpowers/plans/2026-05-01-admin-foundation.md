@@ -950,8 +950,10 @@ git commit -m "feat(admin): add apiFetch wrapper with bearer auth + 401 handling
 
 > **Next.js 16 note (updated Task 1):** `middleware.ts` is deprecated in Next.js 16 and renamed to `proxy.ts`. The exported function must be named `proxy` (not `middleware`). The runtime is Node.js only (edge runtime removed from proxy). The `config.matcher` and `request.cookies.get()?.value` APIs are unchanged.
 
+> **Existing-file note:** `frontend/proxy.ts` already exists for customer-portal locale routing. Its current matcher excludes `/admin` (so admin routes pass through untouched). We **modify** the existing proxy to add the admin auth branch — we do NOT create a new file. Customer-side locale routing must keep working unchanged.
+
 **Files:**
-- Create: `frontend/proxy.ts`
+- Modify: `frontend/proxy.ts` (existing — adds admin auth branch alongside existing locale routing)
 - Test: `frontend/__tests__/proxy.test.ts`
 
 - [ ] **Step 1: Confirm Next 16 proxy API** ✅ Already confirmed in Task 1.
@@ -962,6 +964,42 @@ Key verified facts:
 - `config.matcher` is supported
 - `request.cookies.get('admin_token')?.value` returns the string value or `undefined`
 - Runtime is Node.js (not edge); no `runtime` config option allowed in proxy files
+
+**Existing proxy.ts content** (this is what's currently in the repo — we'll extend it):
+```ts
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { locales, defaultLocale } from '@/app/[lang]/locale'
+
+function getLocale(request: NextRequest): string {
+  const acceptLanguage = request.headers.get('accept-language') ?? ''
+  for (const part of acceptLanguage.split(',')) {
+    const tag = part.split(';')[0].trim().toLowerCase().slice(0, 2)
+    if (locales.includes(tag as typeof locales[number])) return tag
+  }
+  return defaultLocale
+}
+
+export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const pathnameHasLocale = locales.some(
+    (locale) =>
+      pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  )
+  if (pathnameHasLocale) return
+  const locale = getLocale(request)
+  request.nextUrl.pathname = `/${locale}${pathname}`
+  return NextResponse.redirect(request.nextUrl)
+}
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|api|confirm|track|admin|driver).*)',
+  ],
+}
+```
+
+Notice: matcher excludes `admin`. We must change the matcher so admin paths flow through proxy too, then branch logic at the top: if path starts with `/admin`, do auth; otherwise fall through to locale routing.
 
 - [ ] **Step 2: Write failing test**
 
@@ -1014,6 +1052,19 @@ describe('proxy', () => {
     const res = proxy(makeReq('/admin/login', { admin_token: validToken() }))
     expect(res?.headers.get('location')).toContain('/admin/dashboard')
   })
+
+  it('does not auth-redirect for non-admin paths (customer portal locale flow)', () => {
+    // Path with a locale prefix should pass through unchanged
+    const passes = proxy(makeReq('/en/about'))
+    expect(passes).toBeUndefined()
+
+    // Path without a locale gets rewritten — exact target depends on Accept-Language;
+    // we only verify the response is a redirect to /<locale>/about, not /admin/login.
+    const rewritten = proxy(makeReq('/about'))
+    const loc = rewritten?.headers.get('location') ?? ''
+    expect(loc).not.toContain('/admin/login')
+    expect(loc).toMatch(/\/(en|tr|ru)\/about/)
+  })
 })
 ```
 
@@ -1022,13 +1073,26 @@ describe('proxy', () => {
 Run: `cd frontend && npx jest __tests__/proxy.test.ts`
 Expected: FAIL.
 
-- [ ] **Step 4: Implement `frontend/proxy.ts`**
+- [ ] **Step 4: Modify `frontend/proxy.ts` to add admin auth branch**
+
+Replace the entire file with:
 
 ```ts
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { locales, defaultLocale } from '@/app/[lang]/locale'
 import { isJwtExpired } from '@/lib/auth/jwt'
 
-export function proxy(request: NextRequest): NextResponse | undefined {
+function getLocale(request: NextRequest): string {
+  const acceptLanguage = request.headers.get('accept-language') ?? ''
+  for (const part of acceptLanguage.split(',')) {
+    const tag = part.split(';')[0].trim().toLowerCase().slice(0, 2)
+    if (locales.includes(tag as typeof locales[number])) return tag
+  }
+  return defaultLocale
+}
+
+function handleAdminAuth(request: NextRequest): NextResponse | undefined {
   const { pathname } = request.nextUrl
   const token = request.cookies.get('admin_token')?.value
   const tokenValid = token != null && !isJwtExpired(token)
@@ -1045,8 +1109,31 @@ export function proxy(request: NextRequest): NextResponse | undefined {
   return undefined
 }
 
+export function proxy(request: NextRequest): NextResponse | undefined {
+  const { pathname } = request.nextUrl
+
+  // Admin section — JWT auth, no locale routing.
+  if (pathname.startsWith('/admin')) {
+    return handleAdminAuth(request)
+  }
+
+  // Customer portal — locale routing (existing behavior, unchanged).
+  const pathnameHasLocale = locales.some(
+    (locale) =>
+      pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  )
+  if (pathnameHasLocale) return undefined
+  const locale = getLocale(request)
+  request.nextUrl.pathname = `/${locale}${pathname}`
+  return NextResponse.redirect(request.nextUrl)
+}
+
 export const config = {
-  matcher: ['/admin/:path*'],
+  // Removed `admin` from the negative-lookahead so admin paths now flow through proxy.
+  // Driver section is still excluded (handled separately when implemented).
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|api|confirm|track|driver).*)',
+  ],
 }
 ```
 
@@ -1055,11 +1142,13 @@ export const config = {
 Run: `cd frontend && npx jest __tests__/proxy.test.ts`
 Expected: 5 passed.
 
+Also smoke-test that customer-portal locale routing still works by inspecting the diff. (Full e2e check happens in Task 14.)
+
 - [ ] **Step 6: Commit**
 
 ```bash
 git add frontend/proxy.ts frontend/__tests__/proxy.test.ts
-git commit -m "feat(admin): add JWT proxy with login/dashboard redirects"
+git commit -m "feat(admin): extend proxy with JWT auth branch for /admin"
 ```
 
 ---
