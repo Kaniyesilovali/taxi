@@ -1,56 +1,59 @@
 'use client'
 import { useState } from 'react'
-import { Select } from '@/components/ui/select'
-import { ArrowLeftRight } from 'lucide-react'
 import type { Route } from '@/lib/types'
+import type { Dictionary } from '@/app/[lang]/dictionaries'
+import { HairlineSelect } from './fields'
 
 interface RouteSelectorProps {
   routes: Route[]
   value: string
   onChange: (routeId: string) => void
   error?: string
+  t: Dictionary['book']['route']
 }
 
-export function RouteSelector({ routes, value, onChange, error }: RouteSelectorProps) {
-  const [localPickup, setLocalPickup] = useState('')
+export function RouteSelector({
+  routes,
+  value,
+  onChange,
+  error,
+  t,
+}: RouteSelectorProps) {
+  const [pickup, setPickup] = useState(
+    () => (value && routes.find((r) => r.id === value)?.pickup_location) || ''
+  )
 
-  // When a route is selected, derive pickup from it; otherwise use local state
-  const selectedPickup = value
-    ? (routes.find(r => r.id === value)?.pickup_location ?? localPickup)
-    : localPickup
+  const selectedPickup =
+    pickup ||
+    (value ? routes.find((r) => r.id === value)?.pickup_location ?? '' : '')
 
-  const pickups = [...new Set(routes.map(r => r.pickup_location))].sort()
-  const dropoffOptions = routes
-    .filter(r => r.pickup_location === selectedPickup)
-    .map(r => ({ value: r.id, label: r.dropoff_location }))
+  const pickups = [...new Set(routes.map((r) => r.pickup_location))].sort()
+  const dropoffs = routes
+    .filter((r) => r.pickup_location === selectedPickup)
+    .map((r) => ({ value: r.id, label: r.dropoff_location }))
 
-  function handlePickupChange(pickup: string) {
-    setLocalPickup(pickup)
+  function handlePickupChange(p: string) {
+    setPickup(p)
     onChange('')
   }
 
   return (
-    <div className="grid items-end gap-3 sm:grid-cols-[1fr_auto_1fr]">
-      <Select
-        label="Pickup"
+    <div className="grid gap-6 sm:grid-cols-2 sm:gap-8">
+      <HairlineSelect
+        label={t.pickup}
         required
-        placeholder="Select pickup"
+        placeholder={t.selectPickup}
         value={selectedPickup}
-        onChange={e => handlePickupChange(e.target.value)}
-        options={pickups.map(p => ({ value: p, label: p }))}
+        onChange={(e) => handlePickupChange(e.target.value)}
+        options={pickups.map((p) => ({ value: p, label: p }))}
       />
-      <div className="hidden sm:flex items-center justify-center pb-2.5">
-        <div className="flex size-9 items-center justify-center rounded-full border border-warm bg-sand text-clay">
-          <ArrowLeftRight className="size-4" />
-        </div>
-      </div>
-      <Select
-        label="Dropoff"
+      <HairlineSelect
+        label={t.dropoff}
         required
-        placeholder={selectedPickup ? 'Select destination' : 'Select pickup first'}
+        placeholder={selectedPickup ? t.selectDropoff : t.selectPickupFirst}
         value={value}
-        onChange={e => onChange(e.target.value)}
-        options={dropoffOptions}
+        onChange={(e) => onChange(e.target.value)}
+        options={dropoffs}
         disabled={!selectedPickup}
         error={error}
       />

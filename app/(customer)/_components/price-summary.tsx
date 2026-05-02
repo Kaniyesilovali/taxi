@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { calculatePrice } from '@/lib/price'
 import type { Extra, Route } from '@/lib/types'
+import type { Dictionary } from '@/app/[lang]/dictionaries'
 
 interface PriceSummaryProps {
   route: Route | null
@@ -8,7 +8,7 @@ interface PriceSummaryProps {
   isVip: boolean
   extras: { extra_id: string; quantity: number }[]
   allExtras: Extra[]
-  submitting: boolean
+  t: Dictionary['book']['summary']
 }
 
 export function PriceSummary({
@@ -17,11 +17,11 @@ export function PriceSummary({
   isVip,
   extras,
   allExtras,
-  submitting,
+  t,
 }: PriceSummaryProps) {
   const extrasWithPrices = extras
-    .map(e => {
-      const extra = allExtras.find(ex => ex.id === e.extra_id)
+    .map((e) => {
+      const extra = allExtras.find((ex) => ex.id === e.extra_id)
       return extra ? { ...extra, quantity: e.quantity } : null
     })
     .filter((e): e is Extra & { quantity: number } => e !== null)
@@ -30,66 +30,66 @@ export function PriceSummary({
     basePrice: route?.base_price ?? 0,
     roundTripPrice: route?.round_trip_price ?? 0,
     isRoundTrip,
-    extras: extrasWithPrices.map(e => ({ price: e.price, quantity: e.quantity })),
+    extras: extrasWithPrices.map((e) => ({ price: e.price, quantity: e.quantity })),
   })
 
   return (
-    <div className="rounded-2xl bg-night p-7 text-white shadow-xl">
-      <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/30">
-        Price Summary
-      </p>
+    <aside className="relative overflow-hidden bg-night text-white">
+      <div className="grain absolute inset-0 opacity-[0.05]" aria-hidden />
+      <div className="relative p-8 lg:p-9">
+        <p className="eyebrow text-gold">{t.title}</p>
+        <span className="mt-5 block h-px w-12 bg-gold" />
 
-      {!route ? (
-        <div className="py-6">
-          <p className="font-display text-6xl font-light italic text-white/15">€—</p>
-          <p className="mt-4 text-sm text-white/30">Select a route to see pricing</p>
-        </div>
-      ) : (
-        <>
-          <div className="mb-5 space-y-2.5 text-sm">
-            <div className="flex justify-between gap-4">
-              <span className="text-white/50">
-                {route.name}
-                {isRoundTrip ? ' (Return)' : ' (One Way)'}
-              </span>
-              <span className="shrink-0 text-white">€{baseAmount.toFixed(2)}</span>
-            </div>
-            {isVip && (
-              <div className="flex justify-between text-white/50">
-                <span>VIP Service</span>
-                <span className="text-white">Included</span>
-              </div>
-            )}
-            {extrasWithPrices.map(e => (
-              <div key={e.id} className="flex justify-between text-white/50">
-                <span>
-                  {e.name} × {e.quantity}
+        {!route ? (
+          <div className="mt-10">
+            <p className="font-display text-6xl font-light italic leading-none text-white/15">
+              €—
+            </p>
+            <p className="mt-6 max-w-xs text-sm text-white/40">{t.selectRoute}</p>
+          </div>
+        ) : (
+          <>
+            <div className="mt-8 space-y-3 text-sm">
+              <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
+                <span className="text-white/60">
+                  {route.name}
+                  <span className="block text-xs uppercase tracking-[0.2em] text-white/30">
+                    {isRoundTrip ? t.return : t.oneWay}
+                  </span>
                 </span>
-                <span className="text-white">€{(e.price * e.quantity).toFixed(2)}</span>
+                <span className="shrink-0 font-display text-xl font-light text-white">
+                  €{baseAmount.toFixed(2)}
+                </span>
               </div>
-            ))}
-          </div>
+              {isVip && (
+                <div className="flex justify-between text-white/60">
+                  <span>{t.vip}</span>
+                  <span className="text-white">{t.included}</span>
+                </div>
+              )}
+              {extrasWithPrices.map((e) => (
+                <div key={e.id} className="flex justify-between text-white/60">
+                  <span>
+                    {e.name} × {e.quantity}
+                  </span>
+                  <span className="text-white">
+                    €{(e.price * e.quantity).toFixed(2)}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-          <div className="mb-7 h-px bg-white/10" />
+            <div className="mt-8">
+              <p className="eyebrow text-white/35">{t.totalLabel}</p>
+              <p className="mt-2 font-display text-6xl font-light italic leading-none text-gold">
+                €{total.toFixed(2)}
+              </p>
+            </div>
 
-          <div className="mb-8">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/30">
-              Total
-            </p>
-            <p className="font-display text-6xl font-light italic leading-none text-gold">
-              €{total.toFixed(2)}
-            </p>
-          </div>
-
-          <Button type="submit" className="w-full" size="lg" loading={submitting}>
-            Book Now
-          </Button>
-
-          <p className="mt-4 text-center text-xs text-white/25">
-            Confirmation sent by email &amp; SMS
-          </p>
-        </>
-      )}
-    </div>
+            <p className="mt-8 text-xs text-white/30">{t.confirmationNote}</p>
+          </>
+        )}
+      </div>
+    </aside>
   )
 }

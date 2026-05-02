@@ -82,6 +82,87 @@
       "button": "Reserve a transfer"
     }
   },
+  "book": {
+    "meta": {
+      "title": "Reserve a Transfer · Cyprus",
+      "description": "Reserve your Cyprus chauffeur transfer in three steps. Fixed prices, professional drivers, instant confirmation."
+    },
+    "hero": {
+      "eyebrow": "Reserve",
+      "title": "A few quiet steps.",
+      "subtitle": "Tell us where you're going, choose how you'd like to travel, and we'll take it from there."
+    },
+    "steps": {
+      "labels": [
+        { "no": "01", "title": "Route" },
+        { "no": "02", "title": "Vehicle" },
+        { "no": "03", "title": "Details" }
+      ],
+      "of": "of",
+      "back": "Back",
+      "continue": "Continue",
+      "confirm": "Confirm reservation",
+      "confirming": "Reserving..."
+    },
+    "route": {
+      "heading": "Route & schedule.",
+      "pickup": "Pickup",
+      "dropoff": "Destination",
+      "selectPickup": "Select pickup",
+      "selectDropoff": "Select destination",
+      "selectPickupFirst": "Select pickup first",
+      "date": "Date",
+      "time": "Time",
+      "passengers": "Passengers",
+      "luggage": "Luggage",
+      "roundTripLabel": "Return journey",
+      "roundTripDesc": "Add a return at a discounted rate."
+    },
+    "vehicle": {
+      "heading": "Vehicle & extras.",
+      "vipLabel": "VIP service",
+      "vipDesc": "Premium sedan, complimentary water, priority dispatch.",
+      "extrasHeading": "Extras",
+      "extrasNone": "No extras available for this route.",
+      "paymentHeading": "Payment",
+      "paymentCash": "Cash on arrival",
+      "paymentCashDesc": "Settle directly with your chauffeur.",
+      "paymentOnline": "Pay online",
+      "paymentOnlineDesc": "Secure payment via Stripe."
+    },
+    "details": {
+      "heading": "Your details.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "phonePlaceholder": "+357 99 000000",
+      "idPassport": "ID or passport number",
+      "notes": "Notes",
+      "notesPlaceholder": "Flight number, special requests..."
+    },
+    "summary": {
+      "title": "Reservation",
+      "selectRoute": "Select a route to see your fare.",
+      "oneWay": "One way",
+      "return": "Return",
+      "vip": "VIP service",
+      "included": "Included",
+      "totalLabel": "Total",
+      "confirmationNote": "Confirmation by email and SMS"
+    },
+    "validation": {
+      "routeRequired": "Select a destination",
+      "dateRequired": "Select a date",
+      "timeRequired": "Select a time",
+      "firstNameRequired": "First name required",
+      "lastNameRequired": "Last name required",
+      "emailRequired": "Valid email required",
+      "phoneRequired": "Valid phone required",
+      "submitFailed": "Reservation could not be completed. Please try again."
+    },
+    "optional": "(optional)"
+  },
   "routes": {
     "title": "Routes & Prices",
     "subtitle": "Fixed prices on all Cyprus airport transfer routes.",

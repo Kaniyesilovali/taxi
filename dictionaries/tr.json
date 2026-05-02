@@ -82,6 +82,87 @@
       "button": "Transfer rezerve et"
     }
   },
+  "book": {
+    "meta": {
+      "title": "Transfer Rezervasyonu · Kıbrıs",
+      "description": "Kıbrıs şoförlü transferinizi üç adımda rezerve edin. Sabit fiyatlar, profesyonel şoförler, anında onay."
+    },
+    "hero": {
+      "eyebrow": "Rezervasyon",
+      "title": "Birkaç sakin adım.",
+      "subtitle": "Nereye gittiğinizi söyleyin, nasıl seyahat etmek istediğinizi seçin — gerisini biz halledelim."
+    },
+    "steps": {
+      "labels": [
+        { "no": "01", "title": "Güzergah" },
+        { "no": "02", "title": "Araç" },
+        { "no": "03", "title": "Bilgiler" }
+      ],
+      "of": "/",
+      "back": "Geri",
+      "continue": "Devam",
+      "confirm": "Rezervasyonu onayla",
+      "confirming": "Rezerve ediliyor..."
+    },
+    "route": {
+      "heading": "Güzergah & program.",
+      "pickup": "Kalkış",
+      "dropoff": "Varış",
+      "selectPickup": "Kalkış noktası seçin",
+      "selectDropoff": "Varış noktası seçin",
+      "selectPickupFirst": "Önce kalkış noktası seçin",
+      "date": "Tarih",
+      "time": "Saat",
+      "passengers": "Yolcu",
+      "luggage": "Bagaj",
+      "roundTripLabel": "Dönüş yolculuğu",
+      "roundTripDesc": "İndirimli oranla dönüş ekleyin."
+    },
+    "vehicle": {
+      "heading": "Araç & ekstralar.",
+      "vipLabel": "VIP hizmet",
+      "vipDesc": "Premium sedan, ikramlık su, öncelikli atama.",
+      "extrasHeading": "Ekstralar",
+      "extrasNone": "Bu güzergah için ekstra mevcut değil.",
+      "paymentHeading": "Ödeme",
+      "paymentCash": "Varışta nakit",
+      "paymentCashDesc": "Doğrudan şoförünüzle ödeyin.",
+      "paymentOnline": "Online ödeme",
+      "paymentOnlineDesc": "Stripe ile güvenli ödeme."
+    },
+    "details": {
+      "heading": "Bilgileriniz.",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "phonePlaceholder": "+90 555 000 0000",
+      "idPassport": "Kimlik veya pasaport numarası",
+      "notes": "Notlar",
+      "notesPlaceholder": "Uçuş numarası, özel istekler..."
+    },
+    "summary": {
+      "title": "Rezervasyon",
+      "selectRoute": "Ücretinizi görmek için güzergah seçin.",
+      "oneWay": "Tek yön",
+      "return": "Dönüşlü",
+      "vip": "VIP hizmet",
+      "included": "Dahil",
+      "totalLabel": "Toplam",
+      "confirmationNote": "Onay e-posta ve SMS ile gelir"
+    },
+    "validation": {
+      "routeRequired": "Varış noktası seçin",
+      "dateRequired": "Tarih seçin",
+      "timeRequired": "Saat seçin",
+      "firstNameRequired": "Ad gerekli",
+      "lastNameRequired": "Soyad gerekli",
+      "emailRequired": "Geçerli e-posta gerekli",
+      "phoneRequired": "Geçerli telefon gerekli",
+      "submitFailed": "Rezervasyon tamamlanamadı. Lütfen tekrar deneyin."
+    },
+    "optional": "(opsiyonel)"
+  },
   "routes": {
     "title": "Güzergahlar & Fiyatlar",
     "subtitle": "Tüm Kıbrıs havalimanı transfer güzergahlarında sabit fiyatlar.",
