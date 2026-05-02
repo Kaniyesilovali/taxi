@@ -304,7 +304,15 @@
     "lastUpdated": "Son güncelleme: 1 Mayıs 2026"
   },
   "footer": {
-    "tagline": "Kıbrıs Havalimanı Transferleri",
-    "copyright": "© {year} Taxsi · Kıbrıs Havalimanı Transferleri"
+    "tagline": "Kıbrıs Şoförlü Transfer",
+    "addressLines": ["Larnaca · Paphos · Limassol", "Kıbrıs"],
+    "hours": "24 / 7 çok dilli operasyon",
+    "directHeading": "Doğrudan hatlar",
+    "serviceHeading": "Hizmet",
+    "companyHeading": "Kurumsal",
+    "legalHeading": "Yasal",
+    "followHeading": "Takip Et",
+    "paymentsLine": "Stripe ile güvenli ödeme · Kartlar kabul edilir · Varışta nakit",
+    "copyright": "© {year} Taxsi · Kıbrıs Şoförlü Transfer"
   }
 }

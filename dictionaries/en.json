@@ -304,7 +304,15 @@
     "lastUpdated": "Last updated: 1 May 2026"
   },
   "footer": {
-    "tagline": "Cyprus Airport Transfers",
-    "copyright": "© {year} Taxsi · Cyprus Airport Transfers"
+    "tagline": "Cyprus Chauffeur Service",
+    "addressLines": ["Larnaca · Paphos · Limassol", "Cyprus"],
+    "hours": "24 / 7 multilingual dispatch",
+    "directHeading": "Direct lines",
+    "serviceHeading": "Service",
+    "companyHeading": "Company",
+    "legalHeading": "Legal",
+    "followHeading": "Follow",
+    "paymentsLine": "Secure payments via Stripe · Cards accepted · Cash on arrival",
+    "copyright": "© {year} Taxsi · Cyprus Chauffeur Service"
   }
 }
