@@ -3,7 +3,7 @@ import { getDictionary, hasLocale, type Locale } from './dictionaries'
 import { Header } from './_components/header'
 import { Footer } from './_components/footer'
 import { WhatsappFab } from './_components/whatsapp-fab'
-import { jsonLdScript, organizationJsonLd } from '@/lib/jsonld'
+import { JsonLd, organizationJsonLd } from '@/lib/jsonld'
 
 interface Props {
   children: React.ReactNode
@@ -22,7 +22,7 @@ export default async function LangLayout({ children, params }: Props) {
 
   return (
     <div className="flex min-h-full flex-col">
-      <script {...jsonLdScript(organizationJsonLd())} />
+      <JsonLd data={organizationJsonLd()} />
       <Header lang={lang as Locale} nav={dict.nav} />
       <main className="flex-1">{children}</main>
       <Footer lang={lang as Locale} dict={dict} />

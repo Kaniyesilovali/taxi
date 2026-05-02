@@ -1,6 +1,8 @@
-// Structured-data helpers. Each function returns a plain object that
-// callers stringify into <script type="application/ld+json">. Keep
-// fields conservative — Google validators are unforgiving with extras.
+// Structured-data helpers. Each builder returns a plain object that the
+// <JsonLd> component below stringifies into a script tag. Keep field
+// shapes conservative — Google validators are unforgiving with extras.
+
+import type * as React from 'react'
 
 const SITE_URL = 'https://taxsi.cy'
 const PHONE = '+357-99-000000'
@@ -12,10 +14,7 @@ export function organizationJsonLd() {
     name: 'Taxsi',
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.ico`,
-    sameAs: [
-      'https://instagram.com/',
-      'https://linkedin.com/',
-    ],
+    sameAs: ['https://instagram.com/', 'https://linkedin.com/'],
     contactPoint: [
       {
         '@type': 'ContactPoint',
@@ -85,9 +84,11 @@ export function breadcrumbJsonLd(crumbs: Crumb[]) {
   }
 }
 
-export function jsonLdScript(data: object) {
-  return {
-    type: 'application/ld+json' as const,
-    dangerouslySetInnerHTML: { __html: JSON.stringify(data) },
-  }
+export function JsonLd({ data }: { data: object }): React.ReactElement {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  )
 }

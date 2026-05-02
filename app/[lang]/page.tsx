@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from './dictionaries'
 import { getRoutes } from '@/lib/api/routes'
-import { jsonLdScript, taxiServiceJsonLd } from '@/lib/jsonld'
+import { JsonLd, taxiServiceJsonLd } from '@/lib/jsonld'
 import { Hero } from './_components/hero'
 import { TrustStrip } from './_components/trust-strip'
 import { WhyTaxsi } from './_components/why-taxsi'
@@ -42,7 +42,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <script {...jsonLdScript(taxiServiceJsonLd({ url: `https://taxsi.cy/${lang}` }))} />
+      <JsonLd data={taxiServiceJsonLd({ url: `https://taxsi.cy/${lang}` })} />
       <Hero lang={lang as Locale} t={dict.homepage.hero} routes={routes} />
       <TrustStrip t={dict.homepage.trust} />
       <WhyTaxsi t={dict.homepage.why} />

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from '@/app/[lang]/dictionaries'
 import { PageHero } from '@/app/[lang]/_components/page-hero'
-import { jsonLdScript, faqPageJsonLd } from '@/lib/jsonld'
+import { JsonLd, faqPageJsonLd } from '@/lib/jsonld'
 import { FaqAccordion } from './_components/faq-accordion'
 
 interface Props {
@@ -26,9 +26,11 @@ export default async function FaqPage({ params }: Props) {
 
   const dict = await getDictionary(lang as Locale)
   const t = dict.faq
+  const allItems = t.sections.flatMap((s) => s.items)
 
   return (
     <>
+      <JsonLd data={faqPageJsonLd(allItems)} />
       <PageHero
         eyebrow={t.eyebrow}
         title={t.title}
