@@ -22,7 +22,7 @@ export function RoutePicker({ lang, routes, t }: RoutePickerProps) {
           id="picker-from"
           name="from"
           defaultValue=""
-          className="w-full appearance-none bg-transparent pb-2 pt-1 text-sm font-light text-white outline-none"
+          className="w-full appearance-none bg-transparent pb-2 pt-1 text-base font-light text-white outline-none sm:text-sm"
         >
           <option value="" className="bg-night text-white/70">
             {t.selectFrom}
@@ -40,7 +40,7 @@ export function RoutePicker({ lang, routes, t }: RoutePickerProps) {
           id="picker-to"
           name="to"
           defaultValue=""
-          className="w-full appearance-none bg-transparent pb-2 pt-1 text-sm font-light text-white outline-none"
+          className="w-full appearance-none bg-transparent pb-2 pt-1 text-base font-light text-white outline-none sm:text-sm"
         >
           <option value="" className="bg-night text-white/70">
             {t.selectTo}
@@ -58,7 +58,7 @@ export function RoutePicker({ lang, routes, t }: RoutePickerProps) {
           id="picker-date"
           name="date"
           type="date"
-          className="w-full appearance-none bg-transparent pb-2 pt-1 text-sm font-light text-white outline-none [color-scheme:dark]"
+          className="w-full appearance-none bg-transparent pb-2 pt-1 text-base font-light text-white outline-none [color-scheme:dark] sm:text-sm"
         />
       </Field>
 
@@ -67,7 +67,7 @@ export function RoutePicker({ lang, routes, t }: RoutePickerProps) {
           id="picker-pax"
           name="pax"
           defaultValue="2"
-          className="w-full appearance-none bg-transparent pb-2 pt-1 text-sm font-light text-white outline-none"
+          className="w-full appearance-none bg-transparent pb-2 pt-1 text-base font-light text-white outline-none sm:text-sm"
         >
           {[1, 2, 3, 4, 5, 6, 7].map((n) => (
             <option key={n} value={n} className="bg-night text-white">
@@ -79,7 +79,7 @@ export function RoutePicker({ lang, routes, t }: RoutePickerProps) {
 
       <button
         type="submit"
-        className="group relative inline-flex h-12 items-center justify-center self-end overflow-hidden border border-gold px-8 text-xs font-medium uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-night"
+        className="group relative col-span-1 inline-flex h-12 items-center justify-center self-end overflow-hidden border border-gold px-8 text-xs font-medium uppercase tracking-[0.22em] text-gold transition-colors hover:bg-gold hover:text-night sm:col-span-2 lg:col-span-1"
       >
         <span className="relative z-10">{t.submit}</span>
       </button>

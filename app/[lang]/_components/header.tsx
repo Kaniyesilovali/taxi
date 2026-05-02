@@ -57,7 +57,7 @@ export function Header({ lang, nav }: HeaderProps) {
 
           <Link
             href={`${base}/book`}
-            className="hidden h-10 items-center border border-gold px-5 text-[10px] font-medium uppercase tracking-[0.28em] text-gold transition-colors hover:bg-gold hover:text-night sm:inline-flex"
+            className="hidden h-11 items-center border border-gold px-5 text-[10px] font-medium uppercase tracking-[0.28em] text-gold transition-colors hover:bg-gold hover:text-night sm:inline-flex"
           >
             {nav.reserve}
           </Link>
@@ -82,14 +82,14 @@ export function Header({ lang, nav }: HeaderProps) {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/5 py-3 text-sm uppercase tracking-[0.18em] text-white/65 transition-colors hover:text-white"
+                className="border-b border-white/5 py-4 text-sm uppercase tracking-[0.18em] text-white/65 transition-colors hover:text-white"
               >
                 {l.label}
               </Link>
             ))}
             <a
               href="tel:+35799000000"
-              className="mt-2 flex items-center gap-2 py-3 text-sm uppercase tracking-[0.18em] text-gold"
+              className="mt-2 flex items-center gap-2 py-4 text-sm uppercase tracking-[0.18em] text-gold"
             >
               <Phone className="size-4" />
               +357 99 000 000

@@ -462,24 +462,24 @@ function StepIndicator({
           <li
             key={l.no}
             className={cn(
-              'flex flex-col gap-2 bg-cream px-5 py-5 transition-colors',
+              'flex flex-col gap-1.5 bg-cream px-3 py-4 transition-colors sm:gap-2 sm:px-5 sm:py-5',
               isActive && 'bg-night text-cream'
             )}
           >
             <span
               className={cn(
-                'kicker text-base',
+                'kicker text-sm sm:text-base',
                 isActive ? 'text-gold' : isDone ? 'text-gold/60' : 'text-clay/40'
               )}
             >
               {l.no}
-              <span className="ml-1 text-xs tracking-[0.3em] opacity-60">
+              <span className="ml-1 hidden text-xs tracking-[0.3em] opacity-60 sm:inline">
                 {ofWord} {labels.length}
               </span>
             </span>
             <span
               className={cn(
-                'font-display text-lg font-light italic',
+                'font-display text-sm font-light italic sm:text-lg',
                 isActive ? 'text-cream' : isDone ? 'text-ink' : 'text-clay/60'
               )}
             >

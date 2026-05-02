@@ -55,7 +55,7 @@ export function Hero({ lang, t, routes }: HeroProps) {
             {t.eyebrow}
           </p>
           <h1
-            className="mt-6 font-display text-[15vw] font-light leading-[0.95] tracking-tight text-white opacity-0 sm:text-7xl lg:text-[7.5rem]"
+            className="mt-6 font-display text-[clamp(3rem,12vw,5.5rem)] font-light leading-[0.95] tracking-tight text-white opacity-0 sm:text-7xl lg:text-[7.5rem]"
             style={{
               animation: 'reveal 1100ms 120ms cubic-bezier(0.16,1,0.3,1) forwards',
             }}
