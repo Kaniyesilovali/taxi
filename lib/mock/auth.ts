@@ -3,6 +3,17 @@ import { mockStore } from './store'
 import { setAdminToken, clearAdminToken, getAdminToken } from '@/lib/auth/cookies'
 import type { AdminUser, LoginBody, LoginResponse } from '@/lib/types/admin'
 
+function assertMockSafeToRun(): void {
+  if (
+    process.env.NODE_ENV === 'production' &&
+    process.env.NEXT_PUBLIC_API_MOCK !== 'true'
+  ) {
+    throw new Error(
+      'mock auth invoked in production with NEXT_PUBLIC_API_MOCK !== "true"',
+    )
+  }
+}
+
 function mintMockJwt(sub: string): string {
   const header = btoa(JSON.stringify({ alg: 'none', typ: 'JWT' })).replace(/=/g, '')
   const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7 // 7 days
@@ -11,6 +22,7 @@ function mintMockJwt(sub: string): string {
 }
 
 export async function mockLogin(body: LoginBody): Promise<LoginResponse> {
+  assertMockSafeToRun()
   await sleep()
   if (body.email !== mockStore.adminUser.email || body.password !== mockStore.adminPassword) {
     throw new Error('Invalid credentials')

@@ -132,7 +132,15 @@
 /* Map shadcn CSS vars → Tailwind v4 color tokens so that utility classes
  * like bg-background, text-foreground, bg-primary, border-input, etc.
  * emit `var(--color-*)` references that the cascade resolves correctly
- * inside [data-admin] subtrees. */
+ * inside [data-admin] subtrees.
+ *
+ * IMPORTANT: do NOT use `bg-background`, `text-foreground`, `bg-primary`,
+ * `border-input`, etc. in customer-portal components. Outside a `[data-admin]`
+ * ancestor, the underlying `--background`, `--primary`, etc. variables are
+ * unset, so these utilities resolve to `var(--color-background)` →
+ * `var(--background)` → empty, producing transparent/initial colors. Customer
+ * code uses `--color-night`, `--color-gold`, etc. (defined in the top
+ * `@theme inline` block) — keep using those. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

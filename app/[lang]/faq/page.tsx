@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from '@/app/[lang]/dictionaries'
 import { PageHero } from '@/app/[lang]/_components/page-hero'
+import { jsonLdScript, faqPageJsonLd } from '@/lib/jsonld'
 import { FaqAccordion } from './_components/faq-accordion'
 
 interface Props {
