@@ -4,7 +4,7 @@
 
 **Goal:** Build the foundation for the Taxsi admin panel — admin theme, mock-mode API layer, JWT-cookie middleware, admin layout shell, and a working `/admin/login` → `/admin/dashboard` flow. After this plan, an admin can log in with mock credentials and see an empty (but real) admin shell with sidebar nav.
 
-**Architecture:** Next.js 16 App Router with a `(admin)` route group. shadcn/ui installed scoped to admin via `[data-admin]` CSS attribute (customer portal's hand-rolled components untouched). Mock-mode API layer driven by `NEXT_PUBLIC_API_MOCK=true` — every API module dispatches to either `lib/api/*` (real fetch) or `lib/mock/*` (in-memory). Auth uses an `admin_token` cookie checked by `middleware.ts`. TanStack Query manages server state with `QueryProvider` wrapping the admin route group.
+**Architecture:** Next.js 16 App Router with a `(admin)` route group. shadcn/ui installed scoped to admin via `[data-admin]` CSS attribute (customer portal's hand-rolled components untouched). Mock-mode API layer driven by `NEXT_PUBLIC_API_MOCK=true` — every API module dispatches to either `lib/api/*` (real fetch) or `lib/mock/*` (in-memory). Auth uses an `admin_token` cookie checked by `proxy.ts` (Next.js 16 renamed `middleware.ts` → `proxy.ts`). TanStack Query manages server state with `QueryProvider` wrapping the admin route group.
 
 **Tech Stack:** Next.js 16, React 19, TypeScript, Tailwind v4 (CSS-first config), shadcn/ui (new-york style), TanStack Query v5, react-hook-form + zod (already installed), sonner for toasts, lucide-react for icons (already installed), Jest + Testing Library.
 
@@ -32,7 +32,7 @@
 - `frontend/lib/mock/store.ts` — in-memory mock data store (drivers, bookings, etc — populated incrementally across plans)
 - `frontend/lib/auth/cookies.ts` — typed cookie helpers (reads `admin_token`)
 - `frontend/lib/auth/jwt.ts` — minimal JWT decode (mock-mode only; production uses backend-issued JWTs we don't need to decode client-side)
-- `frontend/middleware.ts` — JWT cookie check, redirect to `/admin/login`
+- `frontend/proxy.ts` — JWT cookie check, redirect to `/admin/login` (Next.js 16: `middleware.ts` is deprecated → `proxy.ts`)
 - `frontend/app/(admin)/layout.tsx` — wraps admin pages with `<AdminProviders>` + theme attribute
 - `frontend/app/(admin)/admin/login/page.tsx`
 - `frontend/app/(admin)/admin/dashboard/page.tsx` — placeholder
@@ -48,7 +48,7 @@
 - `frontend/lib/auth/__tests__/jwt.test.ts`
 - `frontend/lib/auth/__tests__/cookies.test.ts`
 - `frontend/lib/mock/__tests__/auth.test.ts`
-- `frontend/__tests__/middleware.test.ts`
+- `frontend/__tests__/proxy.test.ts`
 - `frontend/app/(admin)/admin/login/__tests__/login.test.tsx`
 
 ---
@@ -60,14 +60,17 @@
 **Files:**
 - Modify: `frontend/package.json`
 
-- [ ] **Step 1: Read Next 16 middleware + routing docs**
+- [x] **Step 1: Read Next 16 middleware + routing docs** ✅ DONE — findings below
 
-Run:
-```bash
-ls frontend/node_modules/next/dist/docs/ 2>/dev/null || find frontend/node_modules/next -name "*.md" -path "*docs*" | head
-```
-
-Read the middleware, route-groups, and app-router docs. Note any API differences from the patterns in this plan. If any Next 16 API differs from what this plan assumes, **stop and update the plan**.
+**Next.js 16 API deviation found and plan updated:**
+- `middleware.ts` is DEPRECATED in Next.js 16 — renamed to `proxy.ts`
+- The exported function must be named `proxy` (not `middleware`), though default export also works
+- Runtime is Node.js only; `edge` runtime is NOT supported in proxy files; no `runtime` config in proxy
+- `config.matcher` with `/admin/:path*` syntax: CONFIRMED supported
+- `request.cookies.get('admin_token')?.value`: CONFIRMED returns the cookie value string or `undefined`
+- Route groups `(admin)`: CONFIRMED supported (unchanged from Next.js 14/15)
+- App Router is default: CONFIRMED (Next.js 16 is App Router first)
+- Plan updated: all `middleware.ts` references → `proxy.ts`, `export function middleware` → `export function proxy`
 
 - [ ] **Step 2: Install runtime deps**
 
@@ -943,27 +946,29 @@ git commit -m "feat(admin): add apiFetch wrapper with bearer auth + 401 handling
 
 ---
 
-## Task 9: Middleware (JWT cookie check + redirects)
+## Task 9: Proxy (JWT cookie check + redirects)
+
+> **Next.js 16 note (updated Task 1):** `middleware.ts` is deprecated in Next.js 16 and renamed to `proxy.ts`. The exported function must be named `proxy` (not `middleware`). The runtime is Node.js only (edge runtime removed from proxy). The `config.matcher` and `request.cookies.get()?.value` APIs are unchanged.
 
 **Files:**
-- Create: `frontend/middleware.ts`
-- Test: `frontend/__tests__/middleware.test.ts`
+- Create: `frontend/proxy.ts`
+- Test: `frontend/__tests__/proxy.test.ts`
 
-- [ ] **Step 1: Confirm Next 16 middleware API**
+- [ ] **Step 1: Confirm Next 16 proxy API** ✅ Already confirmed in Task 1.
 
-Read `frontend/node_modules/next/dist/docs/`-ish content for "middleware". Key facts to verify:
-- Middleware exports a default function `(request: NextRequest) => NextResponse | Response | undefined`
+Key verified facts:
+- File must be `proxy.ts` (not `middleware.ts`)
+- Named export `proxy` (default export also works)
 - `config.matcher` is supported
-- `request.cookies.get('admin_token')` returns `{ value: string }` or `undefined`
-
-If Next 16 has changed any of these, **stop and update Step 3**.
+- `request.cookies.get('admin_token')?.value` returns the string value or `undefined`
+- Runtime is Node.js (not edge); no `runtime` config option allowed in proxy files
 
 - [ ] **Step 2: Write failing test**
 
-`frontend/__tests__/middleware.test.ts`:
+`frontend/__tests__/proxy.test.ts`:
 ```ts
-/** Tests middleware purely as a unit — exercises NextRequest cookie + URL handling. */
-import { middleware } from '../middleware'
+/** Tests proxy purely as a unit — exercises NextRequest cookie + URL handling. */
+import { proxy } from '../proxy'
 import { NextRequest } from 'next/server'
 
 function makeReq(url: string, cookies: Record<string, string> = {}): NextRequest {
@@ -984,29 +989,29 @@ function expiredToken(): string {
   return `h.${payload}.s`
 }
 
-describe('middleware', () => {
+describe('proxy', () => {
   it('allows /admin/login through unauthenticated', () => {
-    const res = middleware(makeReq('/admin/login'))
+    const res = proxy(makeReq('/admin/login'))
     expect(res?.headers.get('location')).toBeNull()
   })
 
   it('redirects unauthenticated /admin/dashboard to /admin/login', () => {
-    const res = middleware(makeReq('/admin/dashboard'))
+    const res = proxy(makeReq('/admin/dashboard'))
     expect(res?.headers.get('location')).toContain('/admin/login')
   })
 
   it('redirects expired token to /admin/login', () => {
-    const res = middleware(makeReq('/admin/dashboard', { admin_token: expiredToken() }))
+    const res = proxy(makeReq('/admin/dashboard', { admin_token: expiredToken() }))
     expect(res?.headers.get('location')).toContain('/admin/login')
   })
 
   it('allows valid token through to /admin/dashboard', () => {
-    const res = middleware(makeReq('/admin/dashboard', { admin_token: validToken() }))
+    const res = proxy(makeReq('/admin/dashboard', { admin_token: validToken() }))
     expect(res?.headers.get('location')).toBeNull()
   })
 
   it('redirects authenticated /admin/login to /admin/dashboard', () => {
-    const res = middleware(makeReq('/admin/login', { admin_token: validToken() }))
+    const res = proxy(makeReq('/admin/login', { admin_token: validToken() }))
     expect(res?.headers.get('location')).toContain('/admin/dashboard')
   })
 })
@@ -1014,16 +1019,16 @@ describe('middleware', () => {
 
 - [ ] **Step 3: Run tests, verify they fail**
 
-Run: `cd frontend && npx jest __tests__/middleware.test.ts`
+Run: `cd frontend && npx jest __tests__/proxy.test.ts`
 Expected: FAIL.
 
-- [ ] **Step 4: Implement `frontend/middleware.ts`**
+- [ ] **Step 4: Implement `frontend/proxy.ts`**
 
 ```ts
 import { NextRequest, NextResponse } from 'next/server'
 import { isJwtExpired } from '@/lib/auth/jwt'
 
-export function middleware(request: NextRequest): NextResponse | undefined {
+export function proxy(request: NextRequest): NextResponse | undefined {
   const { pathname } = request.nextUrl
   const token = request.cookies.get('admin_token')?.value
   const tokenValid = token != null && !isJwtExpired(token)
@@ -1047,14 +1052,14 @@ export const config = {
 
 - [ ] **Step 5: Run tests, verify they pass**
 
-Run: `cd frontend && npx jest __tests__/middleware.test.ts`
+Run: `cd frontend && npx jest __tests__/proxy.test.ts`
 Expected: 5 passed.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add frontend/middleware.ts frontend/__tests__/middleware.test.ts
-git commit -m "feat(admin): add JWT middleware with login/dashboard redirects"
+git add frontend/proxy.ts frontend/__tests__/proxy.test.ts
+git commit -m "feat(admin): add JWT proxy with login/dashboard redirects"
 ```
 
 ---
@@ -1610,7 +1615,7 @@ git commit -m "chore(admin): plan A cleanup"
 ## Self-Review (already performed — engineer should re-check after execution)
 
 **Spec coverage (Plan A scope only):**
-- §1 Overview / single admin role: covered (Task 9 middleware, Task 13 login)
+- §1 Overview / single admin role: covered (Task 9 proxy, Task 13 login)
 - §2 File Structure (foundation files): covered
 - §3 Auth (mock-mode subset): covered (Task 5–9, 13)
 - §4 API Layer base + auth: covered (Task 7, 8)
