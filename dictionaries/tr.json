@@ -164,15 +164,18 @@
     "optional": "(opsiyonel)"
   },
   "routes": {
+    "eyebrow": "Kıbrıs, noktadan noktaya",
     "title": "Güzergahlar & Fiyatlar",
-    "subtitle": "Tüm Kıbrıs havalimanı transfer güzergahlarında sabit fiyatlar.",
+    "subtitle": "Adada her transfer güzergahında sabit fiyatlar.",
     "oneWay": "Tek Yön",
     "roundTrip": "Gidiş-Dönüş",
-    "bookRoute": "Bu Güzergahı Rezerve Et"
+    "bookRoute": "Bu güzergahı rezerve et",
+    "tableHeading": "Güzergah"
   },
   "about": {
-    "title": "Hakkımızda",
-    "subtitle": "Güvenebileceğiniz Kıbrıs havalimanı transferleri.",
+    "eyebrow": "Hakkımızda",
+    "title": "Özenle Kıbrıs.",
+    "subtitle": "Yolcunun gerçek varış biçimini düşünerek kurulmuş bir şoförlü transfer servisi.",
     "story": {
       "title": "Hikayemiz",
       "body": "Taxsi, basit bir sorunu çözmek için kuruldu: Kıbrıs'ta havalimanı transferleri güvensiz ve stresli oluyordu. Durmayan taksimetreler, yolları bilmeyen sürücüler, sürekli değişen fiyatlar. Bunları düzeltmek için Taxsi'yi inşa ettik — sabit fiyatlar, profesyonel sürücüler ve çalışan bir rezervasyon sistemi."
@@ -192,8 +195,10 @@
     "cta": "Transfer Rezervasyonu Yap"
   },
   "contact": {
-    "title": "İletişim",
-    "subtitle": "Kıbrıs transferiniz için yardımcı olmaya hazırız.",
+    "eyebrow": "Bize ulaşın",
+    "title": "Yanıt insan tarafından gelir.",
+    "subtitle": "Rezervasyon, kurumsal talep veya başka bir konu için doğrudan bize ulaşın.",
+    "directHeading": "Doğrudan hatlar",
     "phoneLabel": "Telefon",
     "emailLabel": "E-posta",
     "whatsappLabel": "WhatsApp",
@@ -217,8 +222,9 @@
     "noPosts": "Bu dilde henüz yazı bulunmuyor."
   },
   "faq": {
-    "title": "Sık Sorulan Sorular",
-    "subtitle": "Taxsi transferleri hakkında bilmeniz gereken her şey.",
+    "eyebrow": "Sık sorulan",
+    "title": "Sorular, yanıtlar.",
+    "subtitle": "Taxsi transferi rezerve etmeden önce bilmeniz gereken her şey.",
     "sections": [
       {
         "title": "Rezervasyon",

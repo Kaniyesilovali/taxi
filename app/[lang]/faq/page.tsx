@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from '@/app/[lang]/dictionaries'
+import { PageHero } from '@/app/[lang]/_components/page-hero'
 import { FaqAccordion } from './_components/faq-accordion'
 
 interface Props {
@@ -26,14 +27,19 @@ export default async function FaqPage({ params }: Props) {
   const t = dict.faq
 
   return (
-    <div className="min-h-screen bg-sand">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <h1 className="font-display text-4xl font-light italic text-ink">{t.title}</h1>
-        <p className="mt-3 text-clay">{t.subtitle}</p>
-        <div className="mt-12">
+    <>
+      <PageHero
+        eyebrow={t.eyebrow}
+        title={t.title}
+        subtitle={t.subtitle}
+        size="md"
+      />
+
+      <section className="bg-cream text-ink">
+        <div className="mx-auto max-w-5xl px-4 py-24 sm:px-6 lg:py-32">
           <FaqAccordion sections={t.sections} />
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   )
 }

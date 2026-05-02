@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
+import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from '@/app/[lang]/dictionaries'
 import { getRoutes } from '@/lib/api/routes'
+import { PageHero } from '@/app/[lang]/_components/page-hero'
 
 interface Props {
   params: Promise<{ lang: string }>
@@ -16,7 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: dict.routes.title,
     description: dict.routes.subtitle,
-    alternates: { languages: { en: '/en/routes', tr: '/tr/routes', ru: '/ru/routes' } },
+    alternates: {
+      languages: { en: '/en/routes', tr: '/tr/routes', ru: '/ru/routes' },
+    },
   }
 }
 
@@ -31,53 +34,68 @@ export default async function RoutesPage({ params }: Props) {
   const t = dict.routes
 
   return (
-    <div className="min-h-screen bg-sand">
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-        <div className="mb-12">
-          <h1 className="font-display text-4xl font-light italic text-ink">{t.title}</h1>
-          <p className="mt-3 text-clay">{t.subtitle}</p>
-        </div>
+    <>
+      <PageHero
+        eyebrow={t.eyebrow}
+        title={t.title}
+        subtitle={t.subtitle}
+        size="md"
+      />
 
-        <div className="overflow-hidden rounded-2xl border border-warm bg-cream shadow-sm">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-warm bg-sand/50">
-                <th className="px-6 py-4 text-left font-semibold text-ink">Route</th>
-                <th className="px-6 py-4 text-right font-semibold text-ink">{t.oneWay}</th>
-                <th className="px-6 py-4 text-right font-semibold text-ink">{t.roundTrip}</th>
-                <th className="px-6 py-4"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-warm">
-              {routes.map((route) => (
-                <tr key={route.id} className="group hover:bg-sand/30 transition-colors">
-                  <td className="px-6 py-4">
-                    <p className="font-medium text-ink">{route.pickup_location}</p>
-                    <p className="mt-0.5 flex items-center gap-1 text-clay">
-                      <ArrowRight className="size-3" />
+      <section className="bg-cream text-ink">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:py-28">
+          <div className="hidden grid-cols-[2fr_1fr_1fr_auto] gap-6 border-b border-clay/30 pb-4 lg:grid">
+            <span className="eyebrow text-clay/60">{t.tableHeading}</span>
+            <span className="eyebrow text-right text-clay/60">{t.oneWay}</span>
+            <span className="eyebrow text-right text-clay/60">{t.roundTrip}</span>
+            <span />
+          </div>
+
+          <ul>
+            {routes.map((route) => (
+              <li
+                key={route.id}
+                className="border-b border-clay/15 py-7 first:border-t-0"
+              >
+                <Link
+                  href={`/${lang}/book?from=${encodeURIComponent(
+                    route.pickup_location
+                  )}&to=${encodeURIComponent(route.dropoff_location)}`}
+                  className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-3 lg:grid-cols-[2fr_1fr_1fr_auto]"
+                >
+                  <div className="min-w-0">
+                    <p className="font-display text-2xl font-light italic text-ink transition-colors group-hover:text-gold sm:text-3xl">
+                      {route.pickup_location}
+                    </p>
+                    <p className="mt-1 flex items-center gap-2 text-sm text-clay/80">
+                      <ArrowRight className="size-3 text-gold/70" />
                       {route.dropoff_location}
                     </p>
-                  </td>
-                  <td className="px-6 py-4 text-right font-semibold text-ink">
-                    €{route.base_price}
-                  </td>
-                  <td className="px-6 py-4 text-right font-semibold text-ink">
-                    €{route.round_trip_price}
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <Link
-                      href={`/${lang}/book?route=${route.id}`}
-                      className="text-gold text-xs font-medium hover:text-gold-dark transition-colors"
-                    >
-                      {t.bookRoute} →
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+
+                  <div className="flex flex-col items-end gap-1 lg:items-end">
+                    <span className="eyebrow text-clay/50 lg:hidden">{t.oneWay}</span>
+                    <span className="font-display text-xl font-light text-ink sm:text-2xl">
+                      €{route.base_price}
+                    </span>
+                  </div>
+
+                  <div className="hidden flex-col items-end gap-1 lg:flex">
+                    <span className="font-display text-xl font-light text-ink sm:text-2xl">
+                      €{route.round_trip_price}
+                    </span>
+                  </div>
+
+                  <div className="col-span-2 mt-1 flex items-center justify-end gap-2 text-xs uppercase tracking-[0.22em] text-gold transition-all group-hover:gap-3 lg:col-span-1 lg:mt-0">
+                    {t.bookRoute}
+                    <ArrowRight className="size-3.5" />
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   )
 }

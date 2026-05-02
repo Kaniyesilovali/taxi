@@ -164,15 +164,18 @@
     "optional": "(optional)"
   },
   "routes": {
+    "eyebrow": "Cyprus, point to point",
     "title": "Routes & Prices",
-    "subtitle": "Fixed prices on all Cyprus airport transfer routes.",
+    "subtitle": "Fixed prices on every transfer route across the island.",
     "oneWay": "One Way",
     "roundTrip": "Round Trip",
-    "bookRoute": "Book This Route"
+    "bookRoute": "Reserve this route",
+    "tableHeading": "Route"
   },
   "about": {
-    "title": "About Taxsi",
-    "subtitle": "Cyprus airport transfers you can rely on.",
+    "eyebrow": "About Taxsi",
+    "title": "Cyprus, considered.",
+    "subtitle": "A chauffeur service built for the way travellers actually arrive.",
     "story": {
       "title": "Our Story",
       "body": "Taxsi was founded to solve a simple problem: airport transfers in Cyprus were unpredictable and stressful. Meters that kept running, drivers who didn't know the routes, prices that varied wildly. We built Taxsi to fix that — fixed prices, professional drivers, and a booking system that works."
@@ -192,8 +195,10 @@
     "cta": "Book a Transfer"
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "We're here to help with your Cyprus transfer.",
+    "eyebrow": "Speak with us",
+    "title": "We answer in person.",
+    "subtitle": "For reservations, corporate enquiries, or anything in between — reach us directly.",
+    "directHeading": "Direct lines",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
     "whatsappLabel": "WhatsApp",
@@ -217,8 +222,9 @@
     "noPosts": "No posts available in this language yet."
   },
   "faq": {
-    "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about Taxsi transfers.",
+    "eyebrow": "Frequently asked",
+    "title": "Questions, answered.",
+    "subtitle": "Everything you need to know before reserving a Taxsi transfer.",
     "sections": [
       {
         "title": "Booking",
