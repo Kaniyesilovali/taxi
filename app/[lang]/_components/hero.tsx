@@ -1,5 +1,7 @@
+import Image from 'next/image'
 import type { Locale, Dictionary } from '@/app/[lang]/dictionaries'
 import type { Route } from '@/lib/types'
+import { heroPhoto } from '@/lib/photos'
 import { RoutePicker } from './route-picker'
 
 interface HeroProps {
@@ -13,29 +15,33 @@ export function Hero({ lang, t, routes }: HeroProps) {
     <section className="relative isolate overflow-hidden bg-night text-white">
       {/* Cinematic backdrop */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        {/* warm glow top-right (headlight halo) */}
+        <Image
+          src={heroPhoto.url}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-55"
+        />
+        {/* darken bottom for picker legibility */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(60% 50% at 82% 18%, rgba(201,169,97,0.32), rgba(201,169,97,0) 60%)',
-            animation: 'glow-drift 14s ease-in-out infinite',
+              'linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.4) 35%, rgba(10,10,10,0.85) 75%, rgba(10,10,10,1) 100%)',
           }}
         />
-        {/* deep wash bottom-left (asphalt) */}
+        {/* warm glow top-right (headlight halo) */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 mix-blend-screen"
           style={{
             background:
-              'radial-gradient(75% 55% at 8% 95%, rgba(20,20,20,1), rgba(10,10,10,0) 70%)',
+              'radial-gradient(60% 50% at 82% 18%, rgba(201,169,97,0.28), rgba(201,169,97,0) 60%)',
+            animation: 'glow-drift 14s ease-in-out infinite',
           }}
         />
         {/* horizon hairline */}
         <div className="absolute inset-x-0 top-[64%] h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-        {/* faint vertical chrome highlight (suggests sedan flank) */}
-        <div
-          className="absolute inset-y-0 right-[18%] hidden w-px bg-gradient-to-b from-transparent via-white/10 to-transparent lg:block"
-        />
         <div className="grain" />
       </div>
 
