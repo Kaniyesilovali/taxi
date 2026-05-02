@@ -3,9 +3,12 @@ import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, type Locale } from './dictionaries'
 import { getRoutes } from '@/lib/api/routes'
 import { Hero } from './_components/hero'
+import { TrustStrip } from './_components/trust-strip'
 import { WhyTaxsi } from './_components/why-taxsi'
+import { Fleet } from './_components/fleet'
 import { PopularRoutes } from './_components/popular-routes'
 import { HowItWorks } from './_components/how-it-works'
+import { Corporate } from './_components/corporate'
 import { CtaBanner } from './_components/cta-banner'
 
 interface Props {
@@ -17,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!hasLocale(lang)) return {}
   const dict = await getDictionary(lang as Locale)
   return {
-    title: dict.homepage.hero.title,
-    description: dict.homepage.hero.subtitle,
+    title: dict.homepage.meta.title,
+    description: dict.homepage.meta.description,
     alternates: {
       languages: { en: '/en', tr: '/tr', ru: '/ru' },
     },
@@ -36,15 +39,13 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <Hero lang={lang as Locale} t={dict.homepage.hero} />
+      <Hero lang={lang as Locale} t={dict.homepage.hero} routes={routes} />
+      <TrustStrip t={dict.homepage.trust} />
       <WhyTaxsi t={dict.homepage.why} />
-      <PopularRoutes
-        lang={lang as Locale}
-        t={dict.homepage.routes}
-        bookLabel={dict.routes.bookRoute}
-        routes={routes}
-      />
+      <Fleet t={dict.homepage.fleet} />
+      <PopularRoutes lang={lang as Locale} t={dict.homepage.routes} routes={routes} />
       <HowItWorks t={dict.homepage.howItWorks} />
+      <Corporate t={dict.homepage.corporate} />
       <CtaBanner lang={lang as Locale} t={dict.homepage.cta} />
     </>
   )

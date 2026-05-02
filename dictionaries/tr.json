@@ -8,36 +8,78 @@
     "contact": "İletişim"
   },
   "homepage": {
+    "meta": {
+      "title": "Kıbrıs Şoförlü Transfer — Premium Havalimanı Hizmeti",
+      "description": "Kıbrıs genelinde önceden rezervasyonlu özel transferler. Sabit fiyatlar, profesyonel şoförler, terminalde isimli karşılama."
+    },
     "hero": {
-      "title": "Kıbrıs Havalimanı Transferleri",
-      "subtitle": "Sabit fiyatlar. Sürpriz yok. Dakikalar içinde rezervasyon.",
-      "cta": "Transfer Rezervasyonu Yap"
+      "eyebrow": "Kıbrıs · Şoförlü Transfer",
+      "title": "Sakin varın.",
+      "subtitle": "Kıbrıs'ta önceden rezervasyonlu transferler. Sabit fiyatlar, profesyonel şoförler ve uçaktan iner inmez sizi karşılayan bir şoför.",
+      "cta": "Rezerve Et",
+      "picker": {
+        "from": "Nereden",
+        "to": "Nereye",
+        "date": "Tarih",
+        "passengers": "Yolcu",
+        "passengerSingle": "yolcu",
+        "passengerPlural": "yolcu",
+        "submit": "Rezerve Et",
+        "selectFrom": "Kalkış noktası",
+        "selectTo": "Varış noktası"
+      }
+    },
+    "trust": {
+      "items": [
+        { "no": "01", "title": "Terminalde isimli karşılama", "desc": "Şoförünüz adınızın yazılı olduğu tabelayla sizi terminalde bekler — arama da, aranma da yok." },
+        { "no": "02", "title": "Uçuş takibi dahil", "desc": "Her uçuşu takip ediyoruz. Gecikmeler ücretinizi değiştirmez." },
+        { "no": "03", "title": "Sabit fiyat, sayaç yok", "desc": "Size sunulan fiyat ödediğiniz fiyattır. Otoyol ve bekleme zaten dahildir." }
+      ]
     },
     "why": {
-      "title": "Neden Taxsi?",
+      "eyebrow": "Neden Taxsi",
+      "title": "Farklı bir transfer anlayışı.",
       "items": [
-        { "title": "Sabit Fiyatlar", "desc": "Sayaç yok, sürpriz yok. Gördüğünüz fiyat ödediğiniz fiyattır." },
-        { "title": "Profesyonel Sürücüler", "desc": "Lisanslı, deneyimli ve Kıbrıs yollarını bilen sürücüler." },
-        { "title": "7/24 Hizmet", "desc": "Sabahın erken saatlerinde veya gece geç saatte — her zaman buradayız." },
-        { "title": "Anında Onay", "desc": "Online rezervasyon yapın, e-posta ve SMS ile onayınızı hemen alın." }
+        { "phrase": "Sabit Fiyatlar", "desc": "Sayaç yok, sürpriz yok. Gördüğünüz fiyat ödediğiniz fiyattır." },
+        { "phrase": "Profesyonel şoförler.", "desc": "Lisanslı, deneyimli şoförler — Kıbrıs yollarında yıllarca deneyim, sessiz ve özenli hizmet." },
+        { "phrase": "Gece gündüz hizmet.", "desc": "Sabahın erken saati ya da gecenin geç saati — biz sizin programınıza uyarız." },
+        { "phrase": "Anında onay.", "desc": "Rezervasyon ve onay e-posta ve SMS ile saniyeler içinde gelir." }
+      ]
+    },
+    "fleet": {
+      "eyebrow": "Filo",
+      "title": "Sakin yolculuk, özenli detaylar.",
+      "items": [
+        { "name": "Executive Sedan", "capacity": "3 yolcuya kadar · 3 bagaj", "desc": "Mercedes E-Class veya muadili. Bireysel ve çift yolculuğun günlük standardı." },
+        { "name": "Executive Van", "capacity": "7 yolcuya kadar · 7 bagaj", "desc": "Mercedes V-Class veya muadili. Alandan ve sessizlikten ödün vermeyen grup yolculuğu." },
+        { "name": "VIP", "capacity": "3 yolcuya kadar · 3 bagaj", "desc": "Premium sedan, ikramlık su, öncelikli atama. Özel anlar için." }
       ]
     },
     "routes": {
-      "title": "Popüler Güzergahlar",
-      "viewAll": "Tüm güzergahları gör →"
+      "eyebrow": "Kıbrıs, noktadan noktaya",
+      "title": "Güzergahlar.",
+      "viewAll": "Tüm güzergahlar →",
+      "from": "şu fiyattan"
     },
     "howItWorks": {
-      "title": "Nasıl Çalışır?",
+      "eyebrow": "Nasıl çalışır",
+      "title": "Pistten odanıza üç adım.",
       "steps": [
-        { "title": "Online Rezervasyon", "desc": "Güzergah, tarih ve yolcu bilgilerini doldurun. 2 dakika sürer." },
-        { "title": "Sürücü Atanır", "desc": "Profesyonel bir sürücü atarız ve bilgilerini SMS ile göndeririz." },
-        { "title": "Transfer Tamamlanır", "desc": "Sürücünüz terminalde sizi karşılar ve hedefinize götürür." }
+        { "title": "Rezerve edin", "desc": "Güzergah, tarih ve yolcu sayısını seçin. Onaylamadan önce fiyat sabitlenir." },
+        { "title": "Bilgileri alın", "desc": "Şoförünüz SMS ile onaylanır — isim, araç ve doğrudan iletişim." },
+        { "title": "Varışınızı yapın", "desc": "Terminalde karşılanır ve hedefinize götürülürsünüz. Başka hiçbir şey gerekmez." }
       ]
     },
+    "corporate": {
+      "eyebrow": "Kurumsal",
+      "title": "İş seyahatleri, halledilmiş.",
+      "body": "Konsolide faturalama, KDV makbuzları, yöneticiler, roadshow'lar ve ziyaretçi misafirler için hesap yönetimli rezervasyon. Kurumsal anlaşma için bizimle konuşun.",
+      "cta": "Concierge ile konuşun →"
+    },
     "cta": {
-      "title": "Hazır mısınız?",
-      "subtitle": "Tüm Kıbrıs güzergahlarında sabit fiyatlar.",
-      "button": "Transfer Rezervasyonu Yap"
+      "title": "Nereye gidiyorsanız. Biz çoktan vardık.",
+      "subtitle": "İki dakikadan kısa sürede transfer rezerve edin.",
+      "button": "Transfer rezerve et"
     }
   },
   "routes": {

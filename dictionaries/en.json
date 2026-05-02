@@ -8,36 +8,78 @@
     "contact": "Contact"
   },
   "homepage": {
+    "meta": {
+      "title": "Cyprus Chauffeur Transfers — Premium Airport Service",
+      "description": "Pre-booked private transfers across Cyprus. Fixed prices, professional chauffeurs, meet & greet at the terminal."
+    },
     "hero": {
-      "title": "Cyprus Airport Transfers",
-      "subtitle": "Fixed prices. No surprises. Book your transfer in minutes.",
-      "cta": "Book a Transfer"
+      "eyebrow": "Cyprus · Chauffeur Service",
+      "title": "Arrive composed.",
+      "subtitle": "Pre-booked transfers across Cyprus. Fixed prices, professional drivers, and a chauffeur waiting the moment you land.",
+      "cta": "Reserve",
+      "picker": {
+        "from": "From",
+        "to": "To",
+        "date": "Date",
+        "passengers": "Guests",
+        "passengerSingle": "guest",
+        "passengerPlural": "guests",
+        "submit": "Reserve",
+        "selectFrom": "Select pickup",
+        "selectTo": "Select destination"
+      }
+    },
+    "trust": {
+      "items": [
+        { "no": "01", "title": "Meet & greet at arrivals", "desc": "Your chauffeur waits with your name at the terminal — no calls, no searching." },
+        { "no": "02", "title": "Flight tracking included", "desc": "We monitor every flight. Delays do not change your fare." },
+        { "no": "03", "title": "Fixed price, no meters", "desc": "The figure quoted is the figure paid. Tolls and waiting are already in." }
+      ]
     },
     "why": {
-      "title": "Why Choose Taxsi",
+      "eyebrow": "Why Taxsi",
+      "title": "A different kind of transfer.",
       "items": [
-        { "title": "Fixed Prices", "desc": "No meters, no surprises. The price you see is the price you pay." },
-        { "title": "Professional Drivers", "desc": "Licensed, vetted drivers with years of Cyprus transfer experience." },
-        { "title": "24/7 Available", "desc": "Early morning flight or late night arrival — we're always here." },
-        { "title": "Instant Confirmation", "desc": "Book online and receive your confirmation by email and SMS immediately." }
+        { "phrase": "Fixed Prices", "desc": "No meters, no surprises. The price you see is the price you pay." },
+        { "phrase": "Professional drivers.", "desc": "Licensed, vetted chauffeurs with years on Cyprus roads — quiet, careful, and on time." },
+        { "phrase": "Available around the clock.", "desc": "Early-morning departures, late-night arrivals — we keep your hours, not the other way around." },
+        { "phrase": "Confirmed instantly.", "desc": "Reservation and confirmation arrive by email and SMS within seconds of booking." }
+      ]
+    },
+    "fleet": {
+      "eyebrow": "The Fleet",
+      "title": "Composed transport, considered details.",
+      "items": [
+        { "name": "Executive Sedan", "capacity": "Up to 3 guests · 3 cases", "desc": "Mercedes E-Class or equivalent. The everyday standard for individual and pair travel." },
+        { "name": "Executive Van", "capacity": "Up to 7 guests · 7 cases", "desc": "Mercedes V-Class or equivalent. Group travel without compromise on space or quiet." },
+        { "name": "VIP", "capacity": "Up to 3 guests · 3 cases", "desc": "Premium sedan, complimentary water, priority dispatch. For the moments that matter." }
       ]
     },
     "routes": {
-      "title": "Popular Routes",
-      "viewAll": "See all routes →"
+      "eyebrow": "Cyprus, point to point",
+      "title": "Routes.",
+      "viewAll": "All routes →",
+      "from": "from"
     },
     "howItWorks": {
-      "title": "How It Works",
+      "eyebrow": "How it works",
+      "title": "Three steps from runway to room.",
       "steps": [
-        { "title": "Book Online", "desc": "Fill in your route, date, and passenger details. Takes 2 minutes." },
-        { "title": "Driver Assigned", "desc": "We assign a professional driver and send you their details by SMS." },
-        { "title": "Transfer Complete", "desc": "Your driver meets you at the terminal and takes you to your destination." }
+        { "title": "Reserve", "desc": "Choose your route, date, and party size. The fare is fixed before you confirm." },
+        { "title": "Receive details", "desc": "Your chauffeur is confirmed by SMS — name, vehicle, and direct contact." },
+        { "title": "Arrive", "desc": "You are met at the terminal and driven to your destination. Nothing further required." }
       ]
     },
+    "corporate": {
+      "eyebrow": "For Business",
+      "title": "Corporate travel, handled.",
+      "body": "Consolidated invoicing, VAT receipts, and account-managed booking for executives, roadshows, and visiting clients. Speak with us about a corporate arrangement.",
+      "cta": "Speak with our concierge →"
+    },
     "cta": {
-      "title": "Ready to Book?",
-      "subtitle": "Fixed prices across all Cyprus routes.",
-      "button": "Book Your Transfer"
+      "title": "Wherever you're heading. We've already arrived.",
+      "subtitle": "Reserve a transfer in under two minutes.",
+      "button": "Reserve a transfer"
     }
   },
   "routes": {
