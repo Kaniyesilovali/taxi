@@ -9,6 +9,8 @@ import { WhyTaxsi } from './_components/why-taxsi'
 import { Fleet } from './_components/fleet'
 import { Reviews } from './_components/reviews'
 import { TrustedBy } from './_components/trusted-by'
+import { Partners } from './_components/partners'
+import { Trustpilot } from './_components/trustpilot'
 import { PopularRoutes } from './_components/popular-routes'
 import { HowItWorks } from './_components/how-it-works'
 import { Corporate } from './_components/corporate'
@@ -45,9 +47,11 @@ export default async function HomePage({ params }: Props) {
       <JsonLd data={taxiServiceJsonLd({ url: `https://taxsi.cy/${lang}` })} />
       <Hero lang={lang as Locale} t={dict.homepage.hero} routes={routes} />
       <TrustStrip t={dict.homepage.trust} />
+      <Trustpilot lang={lang as Locale} eyebrow={dict.homepage.trustpilot.eyebrow} />
       <WhyTaxsi t={dict.homepage.why} />
       <Fleet t={dict.homepage.fleet} />
       <Reviews t={dict.homepage.reviews} />
+      <Partners t={dict.homepage.partners} />
       <PopularRoutes lang={lang as Locale} t={dict.homepage.routes} routes={routes} />
       <HowItWorks t={dict.homepage.howItWorks} />
       <TrustedBy t={dict.homepage.trustedBy} />

@@ -96,6 +96,12 @@
         }
       ]
     },
+    "partners": {
+      "eyebrow": "Otel concierge ortakları"
+    },
+    "trustpilot": {
+      "eyebrow": "Doğrulanmış yorumlar"
+    },
     "trustedBy": {
       "eyebrow": "Sessizce kanıtlandı",
       "items": [

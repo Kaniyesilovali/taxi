@@ -96,6 +96,12 @@
         }
       ]
     },
+    "partners": {
+      "eyebrow": "Партнёры — отельные консьержи"
+    },
+    "trustpilot": {
+      "eyebrow": "Проверенные отзывы"
+    },
     "trustedBy": {
       "eyebrow": "Тихо проверено",
       "items": [

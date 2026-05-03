@@ -96,6 +96,12 @@
         }
       ]
     },
+    "partners": {
+      "eyebrow": "Hotel concierge partners"
+    },
+    "trustpilot": {
+      "eyebrow": "Verified reviews"
+    },
     "trustedBy": {
       "eyebrow": "Quietly proven",
       "items": [
