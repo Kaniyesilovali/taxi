@@ -42,7 +42,13 @@ export function proxy(request: NextRequest): NextResponse | undefined {
     (locale) =>
       pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   )
-  if (pathnameHasLocale) return undefined
+  if (pathnameHasLocale) {
+    // Forward the pathname so server components (e.g. not-found.tsx) can
+    // recover the locale even when params aren't available.
+    const headers = new Headers(request.headers)
+    headers.set('x-pathname', pathname)
+    return NextResponse.next({ request: { headers } })
+  }
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)

@@ -303,6 +303,22 @@
     "title": "Terms of Use",
     "lastUpdated": "Last updated: 1 May 2026"
   },
+  "errors": {
+    "notFound": {
+      "eyebrow": "Page not found",
+      "title": "We couldn't find that.",
+      "body": "The address you followed has moved, or never existed. Try one of the doors below.",
+      "home": "Return home",
+      "book": "Reserve a transfer"
+    },
+    "generic": {
+      "eyebrow": "Unexpected error",
+      "title": "Something went wrong.",
+      "body": "An unexpected error interrupted this page. Try again, or contact us if it continues.",
+      "retry": "Try again",
+      "home": "Return home"
+    }
+  },
   "footer": {
     "tagline": "Cyprus Chauffeur Service",
     "addressLines": ["Larnaca · Paphos · Limassol", "Cyprus"],

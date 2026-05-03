@@ -303,6 +303,22 @@
     "title": "Kullanım Koşulları",
     "lastUpdated": "Son güncelleme: 1 Mayıs 2026"
   },
+  "errors": {
+    "notFound": {
+      "eyebrow": "Sayfa bulunamadı",
+      "title": "Bunu bulamadık.",
+      "body": "Takip ettiğiniz adres taşınmış veya hiç var olmamış. Aşağıdaki kapılardan birini deneyin.",
+      "home": "Ana sayfaya dön",
+      "book": "Transfer rezerve et"
+    },
+    "generic": {
+      "eyebrow": "Beklenmeyen hata",
+      "title": "Bir şeyler ters gitti.",
+      "body": "Beklenmeyen bir hata bu sayfayı kesintiye uğrattı. Tekrar deneyin veya devam ederse bize ulaşın.",
+      "retry": "Tekrar dene",
+      "home": "Ana sayfaya dön"
+    }
+  },
   "footer": {
     "tagline": "Kıbrıs Şoförlü Transfer",
     "addressLines": ["Larnaca · Paphos · Limassol", "Kıbrıs"],
